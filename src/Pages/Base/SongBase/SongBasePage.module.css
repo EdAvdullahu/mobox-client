@@ -1,0 +1,21 @@
+.base {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: "nav content section";
+}
+.nav {
+  grid-area: nav;
+  width: 300px;
+}
+.content {
+  grid-area: content;
+  width: calc(100vw - 540px);
+  height: calc(100% - 70px);
+  padding: 20px;
+  padding-top: 50px;
+}
+.section {
+  grid-area: section;
+  width: 200px;
+}

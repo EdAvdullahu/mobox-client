@@ -1,14 +1,8 @@
-import "./App.css";
-import BaseBackground from "./Components/Base/BaseBackground";
-import Sidebar from "./Components/Base/Sidebar/Sidebar";
+import { RouterProvider } from "react-router-dom";
+import router from "./Router/router";
 
 function App() {
-  return (
-    <div className="App">
-      <BaseBackground />
-      <Sidebar />
-    </div>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;

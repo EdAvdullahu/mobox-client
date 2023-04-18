@@ -1,0 +1,10 @@
+@import "../../Assets/Css/Variables.css";
+
+.card {
+  margin: 0;
+  padding: 20px;
+  background-color: var(--black-trans40);
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+}

@@ -1,0 +1,42 @@
+@import "../../../Assets/Css/Variables.css";
+.header {
+  position: absolute;
+  top: 8px;
+  margin: 0 auto;
+  width: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.header_item {
+  width: 350px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.premium {
+  border: 2px solid var(--neon-pink);
+  border-radius: 50px;
+  width: 100px;
+  height: 20px;
+  color: var(--neon-pink);
+  background-color: var(--white);
+  padding: 5px 10px;
+  text-align: center;
+  box-shadow: 0 0 10px var(--neon-pink);
+}
+.link {
+  text-decoration: none;
+  color: var(--white);
+}
+.active {
+  height: 3px;
+  width: 100%;
+  background-color: var(--neon-pink);
+  border-radius: 50px;
+  box-shadow: 0 0 15px var(--neon-pink);
+}

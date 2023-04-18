@@ -1,0 +1,92 @@
+@import "../../../Assets/Css/Variables.css";
+
+.wrapper {
+  width: 100%;
+  height: 115px;
+  position: absolute;
+  bottom: 0;
+  left: 300px;
+  width: calc(100vw - 500px);
+  background-color: var(--black-trans40);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all ease-in-out 0.8s;
+}
+.wrapper_open {
+  height: calc(100vh - 70px);
+}
+
+.song_wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.song_info {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.song_info_img {
+  width: 88px;
+  height: 76px;
+  background-color: var(--black-trans40);
+  border-radius: 18px;
+}
+.song_info_text {
+  color: var(--white);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins";
+  text-transform: uppercase;
+}
+
+.song_info_text h3,
+.song_info_text p {
+  margin: 0;
+  padding: 3px;
+}
+
+.control_wrapper {
+  width: calc(100% - 400px);
+  border-bottom: 1px solid var(--white);
+}
+
+.lyrics {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  align-items: center;
+  text-transform: uppercase;
+  font-family: "Kodchasan";
+  color: var(--white);
+  font-size: 0.7rem;
+}
+
+.lyrics_wrapper {
+  background-color: var(--neon-pink);
+  margin-top: 20px;
+  padding: 20px;
+  height: calc(100% - 145px);
+  color: var(--black-trans40);
+  font-family: "Kodchasan";
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lyrics_wrapper div {
+  width: 50%;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+.lyrics_wrapper div:first-child {
+  color: var(--white);
+}
