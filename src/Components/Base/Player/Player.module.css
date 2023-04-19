@@ -11,10 +11,16 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all ease-in-out 0.8s;
+  transition: all ease-in-out 0.5s;
 }
 .wrapper_open {
   height: calc(100vh - 70px);
+}
+.array {
+  transition: all ease-in-out 0.5s;
+}
+.array_open {
+  transform: rotateZ(180deg);
 }
 
 .song_wrapper {
@@ -70,23 +76,13 @@
 }
 
 .lyrics_wrapper {
-  background-color: var(--neon-pink);
+  background-color: var(--neon-pink60);
   margin-top: 20px;
-  padding: 20px;
   height: calc(100% - 145px);
-  color: var(--black-trans40);
-  font-family: "Kodchasan";
-  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-.lyrics_wrapper div {
-  width: 50%;
-  font-size: 1.8rem;
-  font-weight: bold;
-  text-align: center;
-}
-.lyrics_wrapper div:first-child {
-  color: var(--white);
+  padding: 20px 0;
+  overflow: auto;
+  box-shadow: inset 0 10px 10px var(--black-trans40);
 }
