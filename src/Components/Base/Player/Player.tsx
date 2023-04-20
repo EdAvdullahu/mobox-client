@@ -1,8 +1,9 @@
 import { useState } from "react";
 import ArrowPink from "../../../Assets/Svg/ArrowPink";
-import Card from "../../Card/Card";
 import classes from "./Player.module.css";
 import Lyrics from "../../Lyrics/Lyrics";
+import '../../../index.css';
+import ScrollElement from "../../ScrollElement";
 
 interface PlayerProps {
   title?: string;
@@ -81,6 +82,29 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
         "Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
     },
   ];
+  type CSSProperties = {
+  [key: string]: string | number;
+};
+
+const lyricStyle: CSSProperties = {
+  backgroundColor: "var(--neon-pink60)",
+  marginTop: "20px",
+  height: "calc(100% - 100px)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+  padding: "20px 0",
+  overflow: "auto",
+  };
+  
+
+// set active annotation
+const [activeLyricIndex, setActiveLyricIndex] = useState(-1);
+const handleClick = (index: number) => {
+  setActiveLyricIndex(index);
+};
+
+
   return (
     <div
       className={`${classes.wrapper} ${
@@ -109,15 +133,20 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
         </div>
       </div>
       {lyricsAv && (
-        <div className={classes.lyrics_wrapper}>
-          {tempLyrics.map((item, index) => (
+        <ScrollElement
+          divStyle={lyricStyle}
+          shadow={"rgb(0 0 0 / 0.5)"}
+        >
+{tempLyrics.map((item, index) => (
             <Lyrics
               key={index}
-              lyric={item.lyric}
-              annotation={item.annotation}
+    lyric={item.lyric}
+    annotation={item.annotation}
+    isActive={activeLyricIndex === index}
+    onClick={() => handleClick(index)}
             ></Lyrics>
           ))}
-        </div>
+        </ScrollElement>
       )}
     </div>
   );

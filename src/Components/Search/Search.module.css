@@ -1,0 +1,59 @@
+@import '../../Assets/Css/Variables.css';
+
+.search_wrapper {
+ top: 0;
+ position: absolute;
+ overflow: hidden;
+ width: 245px;
+ height: 32px;
+ background-color: var(--black-trans40);
+ left: 15px;
+ border-radius: 50px;
+ transition: all 1s ease-in-out;
+}
+
+.wrapper_open {
+ border-radius: 0;
+ width: calc(100vw - 500px);
+ height: calc(100vh - 115px);
+ transform: translate(-15px, -8px);
+}
+
+.wrapper_open>.search_bar {
+ transform: translate(15px, 8px);
+}
+
+.search_bar {
+ position: absolute;
+ display: flex;
+ flex-direction: row;
+ transition: all ease-in-out 1s;
+}
+
+.input {
+ outline: none;
+ border: 1px solid var(--white-trans60);
+ background-color: var(--white-trans40);
+ border-radius: 50px;
+ padding: 5px;
+ color: var(--white-font);
+ width: 231px;
+ height: 20px;
+}
+
+.icon {
+ position: absolute;
+ top: 6px;
+ left: 215px;
+}
+
+.close {
+ font-family: Kodchasan;
+ margin: auto;
+ margin-left: 10px;
+ color: var(--white-trans40);
+}
+
+.close:hover {
+ color: var(--white-trans50);
+}

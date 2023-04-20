@@ -1,5 +1,5 @@
 import Sidebar from "../../../Components/Base/Sidebar/Sidebar";
-import Card from "../../../Components/Card/Card";
+import Card from "../../../Components/Base/Card/Card";
 import classes from "../SongBase/SongBasePage.module.css";
 function PodcastBasePage() {
   return (

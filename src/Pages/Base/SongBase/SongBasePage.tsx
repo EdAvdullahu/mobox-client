@@ -1,6 +1,6 @@
 import Player from "../../../Components/Base/Player/Player";
 import Sidebar from "../../../Components/Base/Sidebar/Sidebar";
-import Card from "../../../Components/Card/Card";
+import Card from "../../../Components/Base/Card/Card";
 import classes from "./SongBasePage.module.css";
 import { Outlet } from "react-router-dom";
 function SongBasePage() {

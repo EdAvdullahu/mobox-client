@@ -13,12 +13,15 @@
   overflow: hidden;
   transition: all ease-in-out 0.5s;
 }
+
 .wrapper_open {
   height: calc(100vh - 70px);
 }
+
 .array {
   transition: all ease-in-out 0.5s;
 }
+
 .array_open {
   transform: rotateZ(180deg);
 }
@@ -30,17 +33,20 @@
   align-items: center;
   justify-content: space-around;
 }
+
 .song_info {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
+
 .song_info_img {
   width: 88px;
   height: 76px;
   background-color: var(--black-trans40);
   border-radius: 18px;
 }
+
 .song_info_text {
   color: var(--white);
   margin: 0;
@@ -75,14 +81,18 @@
   font-size: 0.7rem;
 }
 
+.main_lyrics {
+  background-color: var(--neon-pink60);
+  height: 100%;
+}
+
 .lyrics_wrapper {
   background-color: var(--neon-pink60);
   margin-top: 20px;
-  height: calc(100% - 145px);
+  height: calc(100% - 100px);
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px 0;
   overflow: auto;
-  box-shadow: inset 0 10px 10px var(--black-trans40);
 }
