@@ -1,6 +1,7 @@
 import Sidebar from "../../../Components/Base/Sidebar/Sidebar";
+// import Card from "@/Components/Base/Card/Card";
 import Card from "../../../Components/Base/Card/Card";
-import classes from "../SongBase/SongBasePage.module.css";
+import classes from "../../Song/Base/SongBasePage.module.css";
 function PodcastBasePage() {
   return (
     <div className={classes.base}>

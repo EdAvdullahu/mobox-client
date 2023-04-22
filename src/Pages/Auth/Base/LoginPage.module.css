@@ -1,0 +1,41 @@
+@import "../../../Assets/Css/Variables.css";
+.main {
+  width: 100vw;
+  height: 100vh;
+}
+.image {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 10000;
+  position: absolute;
+}
+.background {
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--backdrop); /* semi-transparent color */
+  pointer-events: auto; /* enable pointer events */
+}
+.container {
+  position: absolute;
+  width: fit-content;
+  max-width: 500px;
+  min-width: 250px;
+  background-color: var(--black);
+  height: fit-content;
+  max-height: 800px;
+  min-height: 400px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

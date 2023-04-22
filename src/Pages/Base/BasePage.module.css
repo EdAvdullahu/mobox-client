@@ -5,4 +5,13 @@
   height: 100%;
   overflow: hidden;
   position: relative;
+  display: grid;
+  grid-template-areas: "content section";
+  grid-template-columns: calc(100vw - 200px) 200px;
+}
+.content {
+  grid-area: content;
+}
+.section {
+  grid-area: section;
 }
