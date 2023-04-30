@@ -65,7 +65,6 @@
 
 .control_wrapper {
   width: calc(100% - 400px);
-  border-bottom: 1px solid var(--white);
 }
 
 .lyrics {
@@ -95,4 +94,32 @@
   gap: 20px;
   padding: 20px 0;
   overflow: auto;
+}
+
+.controllers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  font-family: "Kodchasan";
+  color: var(--white-font);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time_item {
+  width: 5%;
+}
+
+.time_bar {
+  accent-color: var(--neon-pink60);
+  width: 80%;
+  height: 10px;
 }

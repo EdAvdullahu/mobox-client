@@ -1,0 +1,39 @@
+@import '../../../../Assets/Css/Variables.css';
+
+.main {
+ width: 100%;
+ display: grid;
+ grid-template-columns: 5% 40% 20% 15% 10%;
+ color: var(--gray-font);
+ margin: 5px;
+}
+
+.song {
+ display: flex;
+ flex-direction: row;
+ padding: 0;
+ margin: 0;
+}
+
+.song_info {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+}
+
+.song_info p {
+ font-weight: lighter;
+ padding: 0;
+ margin: 0;
+}
+
+.title {
+ color: var(--white-font);
+}
+
+.song_img img {
+ width: 60px;
+ height: 60px;
+ background-size: contain;
+ border-radius: 10px;
+}

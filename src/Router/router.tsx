@@ -6,27 +6,31 @@ import Explore from "../Pages/Song/Explore";
 import SearchBasePage from "../Pages/Base/SearchBase/SearchBase";
 import UserBasePage from "../Pages/Auth/Base/BasePage";
 import LoginPage from "../Pages/Auth/Login/LoginPage";
+import Playlist from "../Pages/Song/Playlist/Playlist";
 
 const router = createBrowserRouter([
-  {
-    path: "",
-    element: <BasePage />,
+ {
+  path: "",
+  element: <BasePage />,
+  children: [
+   {
+    index: false,
+    path: "/user",
+    element: <UserBasePage />,
+    children: [{ path: "/user/login", element: <LoginPage></LoginPage> }],
+   },
+   {
+    index: false,
+    path: "/music",
+    element: <SongBasePage />,
     children: [
-      {
-        index: false,
-        path: "/user",
-        element: <UserBasePage />,
-        children: [{ path: "/user/login", element: <LoginPage></LoginPage> }],
-      },
-      {
-        index: false,
-        path: "/music",
-        element: <SongBasePage />,
-        children: [{ index: true, element: <Explore /> }],
-      },
-      { path: "/podcast", element: <PodcastBasePage /> },
-      { path: "/search", element: <SearchBasePage /> },
+     { index: true, element: <Explore /> },
+     { path: "/music/playlist/:playlistId", element: <Playlist /> },
     ],
-  },
+   },
+   { path: "/podcast", element: <PodcastBasePage /> },
+   { path: "/search", element: <SearchBasePage /> },
+  ],
+ },
 ]);
 export default router;
