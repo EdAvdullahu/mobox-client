@@ -7,6 +7,8 @@ import SearchBasePage from "../Pages/Base/SearchBase/SearchBase";
 import UserBasePage from "../Pages/Auth/Base/BasePage";
 import LoginPage from "../Pages/Auth/Login/LoginPage";
 import Playlist from "../Pages/Song/Playlist/Playlist";
+import LikedSong from "../Pages/Song/Library/Liked/LikedSong";
+import LibraryBase from "../Pages/Song/Library/LibraryBase";
 
 const router = createBrowserRouter([
  {
@@ -26,6 +28,11 @@ const router = createBrowserRouter([
     children: [
      { index: true, element: <Explore /> },
      { path: "/music/playlist/:playlistId", element: <Playlist /> },
+     {
+      path: "/music/library",
+      element: <LibraryBase />,
+      children: [{ path: "/music/library/liked", element: <LikedSong /> }],
+     },
     ],
    },
    { path: "/podcast", element: <PodcastBasePage /> },

@@ -7,6 +7,7 @@ import MusicNoteGrey from "../../../Assets/Svg/MusicNoteGrey";
 import classes from "./Sidebar.module.css";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../../Store/UserStore/user_state";
+import HeartFill from "../../../Assets/Svg/HeartFill";
 
 function Sidebar() {
  const playlists = useSelector((state: RootState) => state.user.playlists);
@@ -33,10 +34,9 @@ function Sidebar() {
      <div className={classes.menu_item_title}>Library</div>
      <div className={classes.menu_item_list}>
       <div className={classes.icon_wrapper}>
-       <LibraryIconGrey /> Llibrary A
-      </div>
-      <div className={classes.icon_wrapper}>
-       <LibraryIconGrey /> Llibrary B
+       <NavLink to={"/music/library/liked"}>
+        <HeartFill /> Liked Songs
+       </NavLink>
       </div>
       <div className={classes.icon_wrapper}>
        <LibraryIconGrey /> Llibrary C

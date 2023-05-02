@@ -1,0 +1,156 @@
+@import "../../../../Assets/Css/Variables.css";
+
+
+.main {
+ display: flex;
+ flex-direction: column;
+ gap: 30px;
+}
+
+.header {
+ height: 170px;
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ font-family: 'Poppins';
+ font-weight: normal;
+}
+
+.heart {
+ margin-top: 20px;
+ width: 170px;
+ height: 170px;
+ background-color: var(--black-trans30);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ clip-path: path("M 0, 75 C 0, 18.75 18.75, 0 75, 0 S 150, 18.75 150, 75 131.25, 150 75, 150 0, 131.25 0, 75");
+ transform: rotate(0, 100, 100) translate(25px, 25px);
+}
+
+.heart svg {
+ width: 100px;
+ height: 100px;
+ margin-left: -17px;
+ margin-top: -10px;
+}
+
+.info {
+ height: 70%;
+ color: var(--white-font);
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+}
+
+.liked {
+ font-size: 2rem;
+ font-family: 'Abhaya Libre';
+ font-weight: bolder;
+}
+
+.private {
+ font-size: 0.8rem;
+}
+
+.numbers {
+ display: flex;
+ flex-direction: row;
+ gap: 20px;
+}
+
+.list {
+ background-color: var(--gray-trans58);
+ padding: 10px;
+}
+
+.table_header {
+ display: flex;
+ flex-direction: row;
+ text-transform: uppercase;
+ font-family: 'Poppins';
+ font-weight: 600;
+ color: var(--white-font);
+ padding: 2px 0 5px 0;
+ border-bottom: 2px solid var(--logo);
+ margin-bottom: 10px;
+}
+
+
+/* Liked Song item */
+
+.song_item {
+ width: 100%;
+ padding: 0;
+ margin: 0;
+ transition: all ease-in-out 0.5s;
+ display: flex;
+ flex-direction: row;
+ height: 65px;
+ overflow: hidden;
+ color: var(--logo);
+ margin-bottom: 15px;
+}
+
+.song_info {
+ display: flex;
+ flex-direction: row;
+}
+
+.song_text {
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+}
+
+.song_title {
+ font-size: 1.5rem;
+}
+
+.genres {
+ display: flex;
+ flex-direction: row;
+ font-size: 0.9rem;
+ gap: 4px;
+}
+
+.song_img {
+ width: 70px;
+ height: 70px;
+ clip-path: path("M 0, 32.25 C 0, 8.0625 8.0625, 0 32.25, 0 S 64.5, 8.0625 64.5, 32.25 56.4375, 64.5 32.25, 64.5 0, 56.4375 0, 32.25");
+ transition: ease-in-out 0.5s;
+}
+
+.song_img img {
+ height: 70px;
+ width: 70px;
+ transition: ease-in-out 0.5s;
+}
+
+.img_active {
+ width: 120px;
+ height: 120px;
+ clip-path: path("M 0, 57 C 0, 14.25 14.25, 0 57, 0 S 114, 14.25 114, 57 99.75, 114 57, 114 0, 99.75 0, 57");
+}
+
+.img_active img {
+ width: 120px;
+ height: 120px;
+}
+
+.song_active {
+ height: 120px;
+}
+
+.arrow {
+ display: flex;
+ align-items: flex-start;
+}
+
+.arrow_base {
+ transition: all ease-in-out 0.5s;
+}
+
+.arrow_active {
+ transform: rotateZ(180deg);
+}

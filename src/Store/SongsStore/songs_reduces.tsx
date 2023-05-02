@@ -1,3 +1,4 @@
+import { ISongLike } from "@/Pages/Song/types/ILikedSong";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Song {
@@ -29,9 +30,14 @@ interface PlayingState {
  isPlaying: boolean;
 }
 
-const initialState: SongState & PlayingState = {
+interface LikedSongState {
+ likedSongs: ISongLike[] | null;
+}
+
+const initialState: SongState & PlayingState & LikedSongState = {
  CurrentSong: null,
  isPlaying: false,
+ likedSongs: null,
 };
 
 // const initialState = {

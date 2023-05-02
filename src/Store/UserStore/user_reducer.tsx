@@ -8,13 +8,13 @@ interface User {
 
 interface UserState {
  user: User | null;
- songs: any;
+ likedSongs: any;
  playlists: any;
 }
 
 const initialState: UserState = {
  user: null,
- songs: null,
+ likedSongs: null,
  playlists: null,
 };
 
@@ -25,9 +25,17 @@ export const userSlice = createSlice({
   setUser: (state, action: PayloadAction<UserState>) => {
    state.user = action.payload.user;
    state.playlists = action.payload.playlists;
+   state.likedSongs = action.payload.likedSongs;
   },
   clearUser: (state) => {
    state.user = null;
+  },
+  removeLikedSong: (state, action: PayloadAction<string>) => {
+   if (state.likedSongs) {
+    state.likedSongs = state.likedSongs?.filter((item: any) => {
+     item?.id !== action.payload;
+    });
+   }
   },
  },
 });

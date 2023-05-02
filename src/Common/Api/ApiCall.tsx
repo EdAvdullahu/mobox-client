@@ -26,4 +26,14 @@ export default {
   }
   return axios.get(endpoint);
  },
+ postNoAuth(endpoint: any, params: any) {
+  return axios.post(endpoint, params);
+ },
+ deleteNoAuth(endpoint: any, params: any) {
+  if (params) {
+   return axios.delete(endpoint, params);
+  } else {
+   return axios.delete(endpoint);
+  }
+ },
 };

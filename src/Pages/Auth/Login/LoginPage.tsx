@@ -12,8 +12,8 @@ interface IUser {
 }
 
 interface IUserState {
- user: IUser;
- songs: any;
+ user: IUser | null;
+ likedSongs: any;
  playlists: any;
 }
 
@@ -35,10 +35,12 @@ function LoginPage() {
 
   const userState: IUserState = {
    user: user,
+   likedSongs: res.data.result.songLikes,
    playlists: res.data.result.playlists,
-   songs: "s",
   };
+  console.log("USERSTATE", userState);
 
+  console.log("RES.DATA.RESULT.SONGLIKES", res.data.result.songLikes);
   dispatch(UserActions.setUser(userState));
  };
 
