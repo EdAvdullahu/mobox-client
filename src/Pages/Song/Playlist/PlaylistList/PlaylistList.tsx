@@ -3,8 +3,15 @@ import { ISong } from "../../types/ISong";
 import classes from "./PlaylistList.module.css";
 import ScrollElement from "../../../../Components/ScrollElement";
 import { CSSProperties } from "react";
+import { IPlaylist } from "../../types/IPlaylist";
 
-function PlaylistList({ songs }: { songs: ISong[] }) {
+function PlaylistList({
+ songs,
+ playlist,
+}: {
+ songs: ISong[];
+ playlist: IPlaylist;
+}) {
  const innerContent: CSSProperties = {
   height: "calc(100% - 300px)",
   display: "flex",
@@ -22,7 +29,12 @@ function PlaylistList({ songs }: { songs: ISong[] }) {
    </div>
    <ScrollElement divStyle={innerContent} shadow={"rgb(250 40 112 / 0.3)"}>
     {songs.map((item: ISong, index: number) => (
-     <PlayListListItem key={index} song={item} order={index} />
+     <PlayListListItem
+      key={index}
+      song={item}
+      order={index}
+      playlist={playlist}
+     />
     ))}
    </ScrollElement>
   </div>

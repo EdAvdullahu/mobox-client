@@ -6,6 +6,7 @@ interface Endpoints {
   USER_LOGIN: () => string;
   USER_SIGNIN: () => string;
   WHO_AM_I: (name: string) => string;
+  LIKES: (id: number) => string;
  };
  PLAYLIST: {
   ID: (id: string) => string;
@@ -32,6 +33,7 @@ const ENDPOINTS: Endpoints = {
   USER_LOGIN: () => useBasePath("User/login"),
   USER_SIGNIN: () => useBasePath("User/register"),
   WHO_AM_I: (name) => useBasePath(`User/whoami/${name}`),
+  LIKES: (id) => useBasePath(`User/likes/${id}`),
  },
  PLAYLIST: {
   ID: (id) => useBasePath(`Playlist/${id}`),

@@ -5,6 +5,12 @@ import { SongActions } from "../../../Store/SongsStore/songs_reduces";
 import PlayButton from "../../PlayButton";
 import NextButton from "../../../Assets/Svg/NextButton";
 import classes from "./Player.module.css";
+import PreviousButton from "../../../Assets/Svg/PreviousButton";
+import RepeatSongButton from "../../../Assets/Svg/RepeatSongButton";
+import RepeatButtonActive from "../../../Assets/Svg/RepeatButton";
+import RepeatButtonUnactive from "../../../Assets/Svg/RepeatButtonUnactive";
+import ShuffleButtonActive from "../../../Assets/Svg/ShuffleButtonActive";
+import ShuffleButton from "../../../Assets/Svg/ShuffleButton";
 
 type Props = {
  src: string;
@@ -13,10 +19,19 @@ type Props = {
 const MusicController: React.FC<Props> = ({ src }) => {
  const audioRef = useRef<HTMLAudioElement>(null);
  const isPlaying = useSelector((state: SongState) => state.song.isPlaying);
+ const currentSong = useSelector((state: SongState) => state.song.CurrentSong);
+ const replaySong = useSelector(
+  (state: SongState) => state.song.isRepeatingSong
+ );
+ const replayPlaylist = useSelector(
+  (state: SongState) => state.song.isRepeatingPlaylist
+ );
+ const shuffle = useSelector((state: SongState) => state.song.isShuffle);
  const [currentTime, setCurrentTime] = useState(0);
  const [duration, setDuration] = useState(0);
  const dispatch = useDispatch();
 
+ // play/pause song
  const togglePlay = () => {
   if (audioRef.current) {
    if (isPlaying) {
@@ -27,21 +42,42 @@ const MusicController: React.FC<Props> = ({ src }) => {
   }
   dispatch(SongActions.togglePlay());
  };
- // useEffect(() => {
- //  if (audioRef.current) {
- //   audioRef.current.play();
- //  }
- // }, [src, isPlaying]);
- useEffect(() => {
-  if (audioRef.current) {
-   if (!isPlaying) {
-    audioRef.current.pause();
-   } else {
-    audioRef.current.play();
-   }
-  }
- }, [isPlaying]);
 
+ // song controller setup
+ const playNext = () => {
+  dispatch(SongActions.PlayNextSong());
+ };
+ const playPrevious = () => {
+  dispatch(SongActions.PlayPreviousSong());
+ };
+ const toggleRepeat = () => {
+  dispatch(SongActions.ToggleRepeat());
+ };
+ const toggleShuffeling = () => {
+  dispatch(SongActions.ToggleShuffeling());
+ };
+ const PlayNextEvent = () => {
+  if (!replaySong) {
+   dispatch(SongActions.PlayNextEvent());
+  } else {
+   audioRef.current?.play();
+  }
+ };
+
+ // start/pause song when isPlaying ore currentSong changes
+ useEffect(() => {
+  setTimeout(() => {
+   if (audioRef.current) {
+    if (!isPlaying) {
+     audioRef.current.pause();
+    } else {
+     audioRef.current.play();
+    }
+   }
+  }, 200);
+ }, [isPlaying, currentSong]);
+
+ // time update on progressbar
  const handleTimeUpdate = () => {
   if (audioRef.current) {
    setCurrentTime(audioRef.current.currentTime);
@@ -49,6 +85,7 @@ const MusicController: React.FC<Props> = ({ src }) => {
   }
  };
 
+ // "infinite loop" for time update
  useEffect(() => {
   if (audioRef.current) {
    audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -60,36 +97,59 @@ const MusicController: React.FC<Props> = ({ src }) => {
   };
  }, []);
 
- const handleProgressClick = (e: React.MouseEvent<HTMLInputElement>) => {
+ // set time at position clicked on progress bar
+ const handleProgressClick = (
+  e: React.MouseEvent<HTMLInputElement, MouseEvent>
+ ) => {
+  console.log("CALLED");
   if (audioRef.current) {
    const percent = e.nativeEvent.offsetX / e.currentTarget.offsetWidth;
+   console.log("PERCENT", percent);
    audioRef.current.currentTime = percent * duration;
   }
  };
 
  return (
   <div>
-   <audio ref={audioRef} src={src} />
+   <audio ref={audioRef} src={currentSong?.path} onEnded={PlayNextEvent} />
    <div className={classes.controllers}>
+    <div onClick={toggleShuffeling}>
+     {shuffle ? <ShuffleButtonActive /> : <ShuffleButton />}
+    </div>
+    <div onClick={playPrevious}>
+     <PreviousButton />
+    </div>
     <div onClick={togglePlay}>
      <PlayButton></PlayButton>
     </div>
-    <div>
+    <div onClick={playNext}>
      <NextButton></NextButton>
+    </div>
+    <div onClick={toggleRepeat}>
+     {replayPlaylist ? (
+      <RepeatButtonActive />
+     ) : replaySong ? (
+      <RepeatSongButton />
+     ) : (
+      <RepeatButtonUnactive />
+     )}
     </div>
    </div>
    <div>
     <div className={classes.time}>
      <span className={classes.time_item}>{formatTime(currentTime)}</span>{" "}
-     <progress
+     <input
+      type="range"
       className={classes.time_bar}
       value={currentTime}
       max={duration}
-      onClick={() => {
-       handleProgressClick;
+      onClick={(e) => {
+       handleProgressClick(e);
       }}
      />{" "}
-     <span className={classes.time_item}>{formatTime(duration)}</span>
+     {duration && (
+      <span className={classes.time_item}>{formatTime(duration)}</span>
+     )}
     </div>
    </div>
   </div>

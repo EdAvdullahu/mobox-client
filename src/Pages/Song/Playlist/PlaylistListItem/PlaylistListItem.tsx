@@ -1,10 +1,24 @@
-import { useState } from "react";
 import { ISong } from "../../types/ISong";
 import classes from "./PlaylistLIstItem.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SongActions } from "../../../../Store/SongsStore/songs_reduces";
+import HeartFill from "../../../../Assets/Svg/HeartFill";
+import HeartNoFill from "../../../../Assets/Svg/HeartNoFill";
+import ApiCall from "../../../../Common/Api/ApiCall";
+import ENDPOINTS from "../../../../Common/Api/ENDPOINTS";
+import { RootState } from "../../../../Store/UserStore/user_state";
+import { UserActions } from "../../../../Store/UserStore/user_reducer";
+import { IPlaylist } from "../../types/IPlaylist";
 
-function PlayListListItem({ song, order }: { song: ISong; order: number }) {
+function PlayListListItem({
+ song,
+ order,
+ playlist,
+}: {
+ song: ISong;
+ order: number;
+ playlist: IPlaylist;
+}) {
  function formatDuration(duration: string) {
   const [hours, minutes, seconds] = duration.split(":").map(Number);
   const formattedMinutes = minutes.toString().padStart(2, "0");
@@ -18,13 +32,53 @@ function PlayListListItem({ song, order }: { song: ISong; order: number }) {
  interface ISongState {
   CurrentSong: ISong;
  }
- const SongState: ISongState = {
+ interface CurrentSongState {
+  currentlyPlayingFrom: any;
+  orderBy: string | null;
+  asc: boolean;
+  type: string | null;
+ }
+
+ const SongState: ISongState & CurrentSongState = {
   CurrentSong: song,
+  currentlyPlayingFrom: playlist,
+  orderBy: null,
+  asc: false,
+  type: "RELEASE",
  };
  function setPlayingSong() {
   dispatch(SongActions.setCurrentPlayingSong(SongState));
-  console.log("called", song);
  }
+ const userId = useSelector((state: RootState) => state.user.user?.id);
+
+ const likeDislikeSong = () => {
+  if (song.isLiked) {
+   ApiCall.deleteNoAuth(ENDPOINTS.SONG.DISLIKE(song.likedId), null).then(
+    (res) => {
+     if (res.data.result) {
+      dispatch(UserActions.removeLikedSongs(song.likedId));
+     }
+    }
+   );
+  } else {
+   const likeS = {
+    userId: userId,
+    songId: song.songId,
+   };
+   ApiCall.postNoAuth(ENDPOINTS.SONG.LIKE(), likeS).then((res) => {
+    if (res.data.result) {
+     if (userId) {
+      ApiCall.getNoAuth(ENDPOINTS.USER.LIKES(+userId), null).then((res) => {
+       if (res.data.isSuccess && res.data.result) {
+        dispatch(UserActions.resetLikedSongs(res.data.result));
+       }
+      });
+     }
+     song.isLiked = true;
+    }
+   });
+  }
+ };
  return (
   <div>
    <div className={classes.main}>
@@ -54,7 +108,9 @@ function PlayListListItem({ song, order }: { song: ISong; order: number }) {
     <div>
      <p>{formatDuration(song.length)}</p>
     </div>
-    <div></div>
+    <div onClick={likeDislikeSong}>
+     {song.isLiked ? <HeartFill /> : <HeartNoFill />}
+    </div>
    </div>
   </div>
  );

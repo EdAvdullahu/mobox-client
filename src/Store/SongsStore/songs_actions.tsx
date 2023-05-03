@@ -99,6 +99,11 @@ interface Like {
 export const SET_CURRENT_SONG = "SET_CURRENT_SONG";
 export const TOGGLE_PLAYING = "TOGGLE_PLAYING";
 export const SET_LIKED_SONGS = "SET_LIKED_SONGS";
+export const PLAY_NEXT = "PLAY_NEXT";
+export const PLAY_PREVIOUS = "PLAY_PREVIOUS";
+export const TOGGLE_REPEAT = "TOGGLE_REPEAT";
+export const PLAY_NEXT_EVENT = "PLAY_NEXT_EVENT";
+export const TOGGLE_SHUFFLE = "TOGGLE_SHUFFLE";
 
 interface SetCurrentPlayingSong {
  type: typeof SET_CURRENT_SONG;
@@ -111,5 +116,27 @@ interface SetLikedSongs {
  type: typeof SET_LIKED_SONGS;
  paload: LikedSong[];
 }
+interface PlayNextSong {
+ type: typeof PLAY_NEXT;
+}
+interface PlayPreviousSong {
+ type: typeof PLAY_PREVIOUS;
+}
+interface ToggleRepeat {
+ type: typeof TOGGLE_REPEAT;
+}
+interface PlayNextEvent {
+ type: typeof PLAY_NEXT_EVENT;
+}
+interface ToggleShuffeling {
+ type: typeof TOGGLE_SHUFFLE;
+}
 
-export type SongsSctionTypes = SetCurrentPlayingSong | TogglePlay;
+export type SongsSctionTypes =
+ | SetCurrentPlayingSong
+ | TogglePlay
+ | PlayNextSong
+ | PlayPreviousSong
+ | ToggleRepeat
+ | PlayNextEvent
+ | ToggleShuffeling;

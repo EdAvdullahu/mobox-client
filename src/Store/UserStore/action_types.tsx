@@ -7,7 +7,8 @@ interface User {
 
 export const SET_USER = "SET_USER";
 export const CLEAR_USER = "CLEAR_USER";
-export const REMOVE_FROM_LIKES = "REMOVE_FROM_LIKES";
+export const RESET_LIKED_SONGS = "RESET_LIKED_SONGS";
+export const REMOVE_LIKED_SONG = "REMOVE_LIKED_SONG";
 
 interface SetUserAction {
  type: typeof SET_USER;
@@ -17,9 +18,17 @@ interface SetUserAction {
 interface ClearUserAction {
  type: typeof CLEAR_USER;
 }
-interface removeLikedSong {
- type: typeof REMOVE_FROM_LIKES;
+interface resetLikedSongs {
+ type: typeof RESET_LIKED_SONGS;
+ payload: any;
+}
+interface removeLikedSongs {
+ type: typeof REMOVE_LIKED_SONG;
  payload: string;
 }
 
-export type UserActionTypes = SetUserAction | ClearUserAction | removeLikedSong;
+export type UserActionTypes =
+ | SetUserAction
+ | ClearUserAction
+ | resetLikedSongs
+ | removeLikedSongs;

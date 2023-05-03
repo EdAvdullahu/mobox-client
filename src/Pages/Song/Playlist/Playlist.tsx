@@ -5,19 +5,52 @@ import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
 import PlaylistList from "./PlaylistList/PlaylistList";
 import { IPlaylist } from "../types/IPlaylist";
 import classes from "./Playlist.module.css";
-
-import { ParallaxProvider, useParallax } from "react-scroll-parallax";
-import { Parallax } from "react-scroll-parallax";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Store/UserStore/user_state";
+import { ISong } from "../types/ISong";
 
 function Playlist() {
  const { playlistId } = useParams<{ playlistId: string }>();
  const [playlist, setPlaylist] = useState<IPlaylist | undefined>(undefined);
+ const likedSongs = useSelector((state: RootState) => state.user.likedSongs);
 
+ const addLikeData = (playlist: IPlaylist): IPlaylist => {
+  const playlistWithLikes = playlist.songs.map((item: ISong) => ({
+   ...item,
+   isLiked:
+    likedSongs?.some((lSong: any) => lSong?.songId === item.songId) ?? false,
+  }));
+  playlistWithLikes.forEach((element: ISong) => {
+   if (element.isLiked) {
+    likedSongs.forEach((song: any) => {
+     if (song.songId === element.songId) {
+      element.likedId = song.id;
+     }
+    });
+   }
+  });
+  return { ...playlist, songs: playlistWithLikes };
+ };
  useEffect(() => {
+  if (playlist) setPlaylist(addLikeData(playlist));
+ }, [likedSongs]);
+ useEffect(() => {
+  const fetchPlaylist = async () => {
+   try {
+    if (playlistId) {
+     const res = await ApiCall.getNoAuth(
+      ENDPOINTS.PLAYLIST.ID(playlistId),
+      null
+     );
+     const playlistWithLikes = addLikeData(res.data.result);
+     setPlaylist(playlistWithLikes);
+    }
+   } catch (error) {
+    console.error(error);
+   }
+  };
   if (playlistId) {
-   ApiCall.getNoAuth(ENDPOINTS.PLAYLIST.ID(playlistId), null).then((res) => {
-    setPlaylist(res.data.result);
-   });
+   fetchPlaylist();
   }
  }, [playlistId]);
 
@@ -57,7 +90,11 @@ function Playlist() {
      </div>
     </div>
    </div>
-   <div>{playlist?.songs && <PlaylistList songs={playlist.songs} />}</div>
+   <div>
+    {playlist?.songs && (
+     <PlaylistList songs={playlist.songs} playlist={playlist} />
+    )}
+   </div>
   </div>
  );
 }

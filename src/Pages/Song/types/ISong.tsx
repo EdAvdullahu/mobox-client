@@ -18,4 +18,6 @@ export interface ISong {
   name: string;
   description: string;
  }[];
+ isLiked: boolean;
+ likedId: any;
 }

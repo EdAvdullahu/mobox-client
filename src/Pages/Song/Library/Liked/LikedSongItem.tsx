@@ -33,7 +33,7 @@ function LikedSongItem({
   try {
    ApiCall.deleteNoAuth(ENDPOINTS.SONG.DISLIKE(song?.id), null).then((res) => {
     if (res.data.result === true) {
-     dispatch(UserActions.removeLikedSong(song?.id));
+     dispatch(UserActions.removeLikedSongs(song?.id));
     } else {
      console.log("SMETHING WENT WRONG");
     }
@@ -63,8 +63,8 @@ function LikedSongItem({
      <div className={classes.genres}>
       {song?.song?.genres?.map((item: any, index: number) => (
        <div key={index}>
-        {item?.genre?.name +
-         (index === song?.song?.genres?.length - 1 ? " " : ", ")}
+        {item?.genre?.name ||
+         item?.name + (index === song?.song?.genres?.length - 1 ? " " : ", ")}
        </div>
       ))}
      </div>

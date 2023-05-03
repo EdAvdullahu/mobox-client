@@ -16,7 +16,6 @@ interface headers {
 function LikedSong() {
  const likedSongs = useSelector((state: RootState) => state.user.likedSongs);
  const user = useSelector((state: RootState) => state.user);
- console.log("USER", user);
 
  const [active, setActive] = useState<number | null>(null);
  const handleActive = (index: number) => {
@@ -39,9 +38,9 @@ function LikedSong() {
  function countLength(): string {
   let totalLengthInSeconds: number = 0;
   if (likedSongs) {
-   for (let i = 0; i < Object.keys(likedSongs).length; i++) {
-    let songLength = likedSongs[i].song.length;
-    let lengthParts = songLength.split(":");
+   for (let i = 0; i < Object.keys(likedSongs)?.length; i++) {
+    let songLength = likedSongs[i].song?.length;
+    let lengthParts = songLength?.split(":");
     let lengthInSeconds =
      parseInt(lengthParts[0]) * 3600 +
      parseInt(lengthParts[1]) * 60 +

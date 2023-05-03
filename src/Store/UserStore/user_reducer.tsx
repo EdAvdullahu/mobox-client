@@ -30,12 +30,13 @@ export const userSlice = createSlice({
   clearUser: (state) => {
    state.user = null;
   },
-  removeLikedSong: (state, action: PayloadAction<string>) => {
-   if (state.likedSongs) {
-    state.likedSongs = state.likedSongs?.filter((item: any) => {
-     item?.id !== action.payload;
-    });
-   }
+  resetLikedSongs: (state, action: PayloadAction<any>) => {
+   state.likedSongs = action.payload;
+  },
+  removeLikedSongs: (state, action: PayloadAction<string>) => {
+   state.likedSongs = state.likedSongs.filter(
+    (item: any) => item?.id !== action.payload
+   );
   },
  },
 });

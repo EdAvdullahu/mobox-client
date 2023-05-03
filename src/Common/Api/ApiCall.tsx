@@ -36,4 +36,11 @@ export default {
    return axios.delete(endpoint);
   }
  },
+ putNoAuth(endpoint: any, params: any) {
+  if (params) {
+   return axios.put(endpoint, params);
+  } else {
+   return axios.put(endpoint);
+  }
+ },
 };
