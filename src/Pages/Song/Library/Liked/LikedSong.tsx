@@ -37,9 +37,9 @@ function LikedSong() {
 
  function countLength(): string {
   let totalLengthInSeconds: number = 0;
-  if (likedSongs) {
-   for (let i = 0; i < Object.keys(likedSongs)?.length; i++) {
-    let songLength = likedSongs[i].song?.length;
+  if (likedSongs?.songs) {
+   for (let i = 0; i < Object.keys(likedSongs?.songs)?.length; i++) {
+    let songLength = likedSongs?.songs[i].length;
     let lengthParts = songLength?.split(":");
     let lengthInSeconds =
      parseInt(lengthParts[0]) * 3600 +
@@ -95,7 +95,7 @@ function LikedSong() {
      ))}
     </div>
     <ScrollElement>
-     {likedSongs?.map((item: ISongLike, index: number) => (
+     {likedSongs?.songs?.map((item: ISongLike, index: number) => (
       <LikedSongItem
        onClick={() => handleActive(index + 1)}
        key={index}

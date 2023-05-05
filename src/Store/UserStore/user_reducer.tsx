@@ -34,8 +34,8 @@ export const userSlice = createSlice({
    state.likedSongs = action.payload;
   },
   removeLikedSongs: (state, action: PayloadAction<string>) => {
-   state.likedSongs = state.likedSongs.filter(
-    (item: any) => item?.id !== action.payload
+   state.likedSongs.songs = state.likedSongs.songs.filter(
+    (item: any) => item?.likedId !== action.payload
    );
   },
  },

@@ -1,0 +1,45 @@
+@import '../../../../Assets/Css/Variables.css';
+
+.main {
+ display: grid;
+ grid-template-areas:
+  'img list'
+  'similar similar'
+  'info info';
+ grid-template-columns: 350px 1fr;
+ gap: 30px;
+ height: 100%;
+ width: 100%;
+ color: var(--white-font);
+}
+
+.img {
+ height: 350px;
+ grid-area: img;
+ position: relative;
+ overflow: hidden;
+}
+
+.img img {
+ max-height: 350px;
+ background-size: contain;
+ background-position: left;
+ position: absolute;
+ right: 0;
+}
+
+.list {
+ grid-area: list;
+}
+
+.list_inner {
+ width: 100%;
+}
+
+.similar {
+ grid-area: similar;
+}
+
+.info {
+ grid-area: info;
+}

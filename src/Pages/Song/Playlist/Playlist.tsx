@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ApiCall from "../../../Common/Api/ApiCall";
 import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
@@ -17,18 +17,20 @@ function Playlist() {
  const addLikeData = (playlist: IPlaylist): IPlaylist => {
   const playlistWithLikes = playlist.songs.map((item: ISong) => ({
    ...item,
-   isLiked:
-    likedSongs?.some((lSong: any) => lSong?.songId === item.songId) ?? false,
+   isLiked: likedSongs?.songs?.some(
+    (lSong: any) => lSong?.songId === item.songId
+   ),
   }));
   playlistWithLikes.forEach((element: ISong) => {
    if (element.isLiked) {
-    likedSongs.forEach((song: any) => {
+    likedSongs?.songs?.forEach((song: any) => {
      if (song.songId === element.songId) {
-      element.likedId = song.id;
+      element.likedId = song.likedId;
      }
     });
    }
   });
+  console.log("playlist with likes", playlistWithLikes);
   return { ...playlist, songs: playlistWithLikes };
  };
  useEffect(() => {

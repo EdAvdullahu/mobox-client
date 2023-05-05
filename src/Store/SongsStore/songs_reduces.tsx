@@ -87,7 +87,9 @@ export const songSlice = createSlice({
      state.orderBy = action.payload.type;
      state.CurrentSong = action.payload.CurrentSong;
      if (!state.isShuffle) {
-      state.InnerPlayer = action.payload.CurrentSong;
+      state.InnerPlayer = action.payload.currentlyPlayingFrom;
+     } else {
+      state.InnerPlayer = shufflePlaylist(action.payload.currentlyPlayingFrom);
      }
     }
    } else {
@@ -102,6 +104,11 @@ export const songSlice = createSlice({
      state.type = action.payload.type;
      state.orderBy = action.payload.type;
      state.CurrentSong = action.payload.CurrentSong;
+     if (!state.isShuffle) {
+      state.InnerPlayer = action.payload.currentlyPlayingFrom;
+     } else {
+      state.InnerPlayer = shufflePlaylist(action.payload.currentlyPlayingFrom);
+     }
     }
     state.isPlaying = true;
    }
@@ -110,6 +117,7 @@ export const songSlice = createSlice({
    state.isPlaying = !state.isPlaying;
   },
   PlayNextSong: (state) => {
+   console.log("STATE", state.InnerPlayer);
    state.isPlaying = false;
    let currentId = state.CurrentSong?.songId;
    let index = state.InnerPlayer.songs.findIndex((item: ISong) => {

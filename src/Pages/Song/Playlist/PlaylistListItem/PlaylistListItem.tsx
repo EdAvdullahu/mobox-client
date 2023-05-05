@@ -1,25 +1,28 @@
-import { ISong } from "../../types/ISong";
-import classes from "./PlaylistLIstItem.module.css";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SongActions } from "../../../../Store/SongsStore/songs_reduces";
-import HeartFill from "../../../../Assets/Svg/HeartFill";
-import HeartNoFill from "../../../../Assets/Svg/HeartNoFill";
-import ApiCall from "../../../../Common/Api/ApiCall";
-import ENDPOINTS from "../../../../Common/Api/ENDPOINTS";
 import { RootState } from "../../../../Store/UserStore/user_state";
 import { UserActions } from "../../../../Store/UserStore/user_reducer";
+import { ISong } from "../../types/ISong";
 import { IPlaylist } from "../../types/IPlaylist";
+import { SongActions } from "../../../../Store/SongsStore/songs_reduces";
+import { SongState } from "../../../../Store/SongsStore/songs_state";
+import ApiCall from "../../../../Common/Api/ApiCall";
+import ENDPOINTS from "../../../../Common/Api/ENDPOINTS";
+import classes from "./PlaylistLIstItem.module.css";
+import HeartFill from "../../../../Assets/Svg/HeartFill";
+import HeartNoFill from "../../../../Assets/Svg/HeartNoFill";
+import { NavLink } from "react-router-dom";
+import { formatLikedSongs } from "../../../../Common/Services/comon.services";
 
-function PlayListListItem({
- song,
- order,
- playlist,
-}: {
+interface Props {
  song: ISong;
  order: number;
  playlist: IPlaylist;
-}) {
- function formatDuration(duration: string) {
+}
+
+function PlayListListItem({ song, order, playlist }: Props) {
+ // Format duration as hh:mm:ss
+ function formatDuration(duration: string): string {
   const [hours, minutes, seconds] = duration.split(":").map(Number);
   const formattedMinutes = minutes.toString().padStart(2, "0");
   const formattedSeconds = seconds.toString().padStart(2, "0");
@@ -27,31 +30,41 @@ function PlayListListItem({
    hours > 0 ? hours + ":" : ""
   }${formattedMinutes}:${formattedSeconds}`;
  }
- function handleMouseOver(id: number) {}
- const dispatch = useDispatch();
- interface ISongState {
-  CurrentSong: ISong;
- }
- interface CurrentSongState {
-  currentlyPlayingFrom: any;
-  orderBy: string | null;
-  asc: boolean;
-  type: string | null;
+
+ // Handle hover events
+ const currentlyPlayingSong = useSelector(
+  (state: SongState) => state.song.CurrentSong
+ );
+ const isSongPlaying = useSelector((state: SongState) => state.song.isPlaying);
+ const [isPlaying, setIsPlaying] = useState(false);
+ const [isOver, setIsOver] = useState(false);
+
+ function handleMouseOver() {
+  setIsOver(true);
+  setIsPlaying(song.songId === currentlyPlayingSong?.songId && isSongPlaying);
  }
 
- const SongState: ISongState & CurrentSongState = {
-  CurrentSong: song,
-  currentlyPlayingFrom: playlist,
-  orderBy: null,
-  asc: false,
-  type: "RELEASE",
- };
- function setPlayingSong() {
-  dispatch(SongActions.setCurrentPlayingSong(SongState));
+ function handleMouseLeave() {
+  setIsOver(false);
  }
+
+ const dispatch = useDispatch();
+
+ function setPlayingSong() {
+  const songState = {
+   CurrentSong: song,
+   currentlyPlayingFrom: playlist,
+   orderBy: null,
+   asc: false,
+   type: "RELEASE",
+  };
+  dispatch(SongActions.setCurrentPlayingSong(songState));
+  setIsPlaying(!isPlaying);
+ }
+
  const userId = useSelector((state: RootState) => state.user.user?.id);
 
- const likeDislikeSong = () => {
+ function likeDislikeSong() {
   if (song.isLiked) {
    ApiCall.deleteNoAuth(ENDPOINTS.SONG.DISLIKE(song.likedId), null).then(
     (res) => {
@@ -66,11 +79,20 @@ function PlayListListItem({
     songId: song.songId,
    };
    ApiCall.postNoAuth(ENDPOINTS.SONG.LIKE(), likeS).then((res) => {
+    console.log(res.data);
     if (res.data.result) {
      if (userId) {
       ApiCall.getNoAuth(ENDPOINTS.USER.LIKES(+userId), null).then((res) => {
        if (res.data.isSuccess && res.data.result) {
-        dispatch(UserActions.resetLikedSongs(res.data.result));
+        const Playlist: IPlaylist = {
+         playlistId: "",
+         isPublic: false,
+         title: "Liked Songs",
+         ownerId: 0,
+         description: "A list of liked songs",
+         songs: formatLikedSongs(res.data.result),
+        };
+        dispatch(UserActions.resetLikedSongs(Playlist));
        }
       });
      }
@@ -78,27 +100,45 @@ function PlayListListItem({
     }
    });
   }
- };
+ }
+
  return (
-  <div>
+  <div
+   onMouseLeave={() => {
+    handleMouseLeave();
+   }}
+   onMouseOver={() => {
+    handleMouseOver();
+   }}
+  >
    <div className={classes.main}>
     <div className={classes.order}>{order + 1}</div>
     <div className={classes.song}>
      <div
-      onMouseOver={() => {
-       handleMouseOver(song.songId);
-      }}
       className={classes.song_img}
       onClick={() => {
        setPlayingSong();
       }}
      >
+      {isOver && (
+       <div className={classes.playing_state}>
+        <div className={classes.play_wrapper}>
+         <div
+          className={`${classes.player} ${isPlaying ? classes.paused : ""}`}
+         ></div>
+        </div>
+       </div>
+      )}
       <img src={song.imageUrl} alt={song.name} />
      </div>
      <div className={classes.song_info}>
       <p className={classes.title}>{song.name}</p>
       {song.features.map((feature) => (
-       <p key={feature.artistId}>{feature.name}</p>
+       <p key={feature.artistId}>
+        <NavLink to={"/music/artist/" + feature.artistId}>
+         {feature.name}
+        </NavLink>
+       </p>
       ))}
      </div>
     </div>
@@ -115,4 +155,5 @@ function PlayListListItem({
   </div>
  );
 }
+
 export default PlayListListItem;

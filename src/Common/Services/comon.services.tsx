@@ -24,3 +24,33 @@ const getOrdinalSuffix = (day: number): string => {
    return "th";
  }
 };
+
+export const formatLikedSongs = (likedSongs: any) => {
+ return likedSongs.map((like: any) => ({
+  songId: like.song.songId,
+  name: like.song.name,
+  releaseDate: like.song.releaseDate,
+  length: like.song.length,
+  path: like.song.path,
+  imageUrl: like.song.imageUrl,
+  isExplicit: like.song.isExplicite,
+  hasFeatures: like.song.hasFeatures,
+  releaseId: like.song.releaseId,
+  likeDateTime: like.likeDateTime,
+  release: {
+   releaseId: like.song.release.releaseId,
+   title: like.song.release.title,
+  },
+  features: like.song.features.map((feature: any) => ({
+   artistId: feature.artist.artistId,
+   name: feature.artist.name,
+  })),
+  genres: like.song.genres.map((genre: any) => ({
+   genreId: genre.genre.genreId,
+   name: genre.genre.name,
+   description: genre.genre.description,
+  })),
+  isLiked: true,
+  likedId: like.id,
+ }));
+};

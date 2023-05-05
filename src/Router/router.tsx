@@ -9,6 +9,9 @@ import LoginPage from "../Pages/Auth/Login/LoginPage";
 import Playlist from "../Pages/Song/Playlist/Playlist";
 import LikedSong from "../Pages/Song/Library/Liked/LikedSong";
 import LibraryBase from "../Pages/Song/Library/LibraryBase";
+import Artist from "../Pages/Song/Artist/Artist";
+import ArtistInfo from "../Pages/Song/Artist/BasicInfo/ArtistInfo";
+import AllArtistInfo from "../Pages/Song/Artist/AllInfo/AllArtistInfo";
 
 const router = createBrowserRouter([
  {
@@ -32,6 +35,14 @@ const router = createBrowserRouter([
       path: "/music/library",
       element: <LibraryBase />,
       children: [{ path: "/music/library/liked", element: <LikedSong /> }],
+     },
+     {
+      path: "/music/artist/:artistId",
+      element: <Artist />,
+      children: [
+       { index: true, element: <ArtistInfo /> },
+       { path: "/music/artist/:artistId/view-all", element: <AllArtistInfo /> },
+      ],
      },
     ],
    },

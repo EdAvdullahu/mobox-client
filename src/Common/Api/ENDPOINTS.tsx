@@ -1,4 +1,4 @@
-const BASE_URL: string = "https://localhost:7277/api";
+const BASE_URL: string = "https://localhost:7005/api";
 const useBasePath = (path: string) => `${BASE_URL}/${path}`;
 interface Endpoints {
  USER: {
