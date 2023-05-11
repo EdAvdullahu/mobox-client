@@ -3,6 +3,7 @@ import classes from "./ArtistInfo.module.css";
 import { ArtistState } from "../../../../Store/ArtistStore/artist_state";
 import Card from "../../../../Components/Base/Card/Card";
 import { Release, Song } from "../../types/IArtist";
+import { NavLink } from "react-router-dom";
 
 function ArtistInfo() {
  const artist = useSelector((state: ArtistState) => state.artist.artist);
@@ -14,11 +15,13 @@ function ArtistInfo() {
    <div className={classes.list}>
     <Card>
      <div className={classes.list_inner}>
-      <div>see all</div>
+      <NavLink to={`/music/artist/${artist?.artistId}/view-all`}>
+       See all
+      </NavLink>
       {artist?.releases.map((release: Release, index: number) => (
        <div key={index}>
         {release.songs.map((song: Song, key: number) => (
-         <div>{song.name}</div>
+         <div key={key}>{song.name}</div>
         ))}
        </div>
       ))}

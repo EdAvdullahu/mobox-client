@@ -1,3 +1,6 @@
+import { IPlaylist } from "../../Pages/Song/types/IPlaylist";
+import { ISong } from "../../Pages/Song/types/ISong";
+
 export const formatDate = (dateString: string): string => {
  const date = new Date(dateString);
  const month = date.toLocaleString("default", { month: "long" });
@@ -53,4 +56,26 @@ export const formatLikedSongs = (likedSongs: any) => {
   isLiked: true,
   likedId: like.id,
  }));
+};
+
+export const addLikeData = (
+ playlist: IPlaylist,
+ likedSongs: any
+): IPlaylist => {
+ const playlistWithLikes = playlist.songs?.map((item: ISong) => ({
+  ...item,
+  isLiked: likedSongs?.songs?.some(
+   (lSong: any) => lSong?.songId === item.songId
+  ),
+ }));
+ playlistWithLikes?.forEach((element: ISong) => {
+  if (element.isLiked) {
+   likedSongs?.songs?.forEach((song: any) => {
+    if (song.songId === element.songId) {
+     element.likedId = song.likedId;
+    }
+   });
+  }
+ });
+ return { ...playlist, songs: playlistWithLikes };
 };

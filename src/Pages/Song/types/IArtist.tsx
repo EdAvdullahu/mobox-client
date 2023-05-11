@@ -43,7 +43,7 @@ export interface Genre {
 }
 
 export enum ReleaseType {
- SINGLE = "Single",
- EP = "EP",
- ALBUM = "Album",
+ SINGLE = 0,
+ EP = 1,
+ ALBUM = 2,
 }
