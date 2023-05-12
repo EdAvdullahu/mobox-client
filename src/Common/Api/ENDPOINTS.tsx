@@ -22,7 +22,10 @@ interface Endpoints {
   ARTIST: (id: string) => string;
   GENRES: () => string;
   SEARCH: (name: string) => string;
-  RELEASE: () => string;
+  RELEASE: {
+   RELEASE: () => string;
+   ID: (id: number) => string;
+  };
   SONG: () => string;
  };
 }
@@ -45,7 +48,10 @@ const ENDPOINTS: Endpoints = {
   ARTIST: (id) => useBasePath(`SongApi/artist/${id}`),
   GENRES: () => useBasePath("SongApi/genre/filter"),
   SEARCH: (name: string) => useBasePath(`SongApi/search/${name}`),
-  RELEASE: () => useBasePath("SongApi/release"),
+  RELEASE: {
+   RELEASE: () => useBasePath("SongApi/release"),
+   ID: (id) => useBasePath(`SongApi/release/${id}`),
+  },
   SONG: () => useBasePath("SongApi/song"),
  },
  SONG: {

@@ -71,10 +71,8 @@ function LikedSong() {
       <div className={classes.numbers}>
        <div className={classes.number}>
         {likedSongs &&
-         Object.keys(likedSongs).length +
-          (likedSongs && Object.keys(likedSongs).length > 1
-           ? " songs"
-           : " song")}
+         likedSongs.songs.length +
+          (likedSongs && likedSongs.songs.length > 1 ? " songs" : " song")}
        </div>
        <div>|</div>
        <div className={classes.duration}>{countLength()}</div>

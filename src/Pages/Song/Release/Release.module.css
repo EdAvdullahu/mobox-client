@@ -1,0 +1,71 @@
+@import '../../../Assets/Css/Variables.css';
+
+.main {
+ height: calc(100vh - 100px);
+ padding: 20px 10px;
+ margin: 0;
+ font-family: monospace;
+ position: relative;
+ gap: 20px;
+ display: flex;
+ flex-direction: column;
+}
+
+.header {
+ top: 0;
+ position: sticky;
+ width: 100%;
+ display: flex;
+ gap: 20px;
+ color: var(--white-font);
+ height: 200px;
+}
+
+.header_info {
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-end;
+}
+
+.release_img {
+ width: 200px;
+ height: 200px;
+ border-radius: 10px;
+ overflow: hidden;
+}
+
+.release_img img {
+ width: 200px;
+}
+
+.tittle {
+ font-size: 3rem;
+ font-family: "Abhaya Libre";
+ font-weight: 550;
+}
+
+.description {
+ font-family: "Poppins";
+}
+
+.likes {
+ color: var(--gray-font);
+ padding: 5px 0;
+}
+
+.actions {
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ align-items: center;
+}
+
+.playnow {
+ outline: none;
+ border: 3px solid var(--white-font);
+ background-color: var(--neon-pink);
+ padding: 5px 20px;
+ border-radius: 500px;
+ color: var(--white-font);
+}

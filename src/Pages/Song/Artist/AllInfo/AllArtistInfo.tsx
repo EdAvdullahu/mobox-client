@@ -4,9 +4,10 @@ import classes from "./ArtistInfo.module.css";
 import BaseBackground from "../../../../Components/Base/BaseBackground";
 import ScrollElement from "../../../../Components/ScrollElement";
 import { ArtistState } from "../../../../Store/ArtistStore/artist_state";
-import { Feature, Release, ReleaseType } from "../../types/IArtist";
+import { Release, ReleaseType } from "../../types/IArtist";
 import Card from "../../../../Components/Base/Card/Card";
 import router from "../../../../Router/router";
+
 import { NavLink } from "react-router-dom";
 
 function AllArtistInfo() {
@@ -25,20 +26,13 @@ function AllArtistInfo() {
   setSelectedD(type);
  };
 
- const goTo = (id: number) => {
-  router.navigate("/music/release/" + id);
- };
-
  const renderRelease = (release: Release, key: number) => (
-  <div
-   key={key}
-   onClick={() => {
-    goTo(release.releaseId);
-   }}
-  >
+  <div key={key}>
    <Card>
     <div className={classes.inner_card}>
-     <img src={release.imageUrl} alt={release.title} />
+     <NavLink to={`/music/release/${release.releaseId}`}>
+      <img src={release.imageUrl} alt={release.title} />
+     </NavLink>
      <div className={classes.inner_card_info}>{release.title}</div>
     </div>
    </Card>

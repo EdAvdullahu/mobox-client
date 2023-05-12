@@ -1,41 +1,29 @@
-import { useState } from "react";
-import classes from "./Search.module.css";
-import SearchIcon from "../../Assets/Svg/SearchIcon";
-import BaseBackground from "../../Components/Base/BaseBackground";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import ApiCall from "../../Common/Api/ApiCall";
+import ENDPOINTS from "../../Common/Api/ENDPOINTS";
+import { SearchState } from "../../Store/Search/search_state";
 
 function Search() {
-  const [isCollapsed, setCollapse] = useState(true);
-  function handleClick() {
-    if (isCollapsed) {
-      setCollapse(false);
-    }
+ const searchParam = useSelector(
+  (state: SearchState) => state.search.searchParam
+ );
+
+ useEffect(() => {
+  console.log("SEARCH", searchParam);
+  if (searchParam !== "") {
+   const searchUrl = ENDPOINTS.SONG_API.SEARCH(searchParam);
+   ApiCall.getNoAuth(searchUrl, null)
+    .then((res) => {
+     console.log(res.data.result);
+    })
+    .catch((error) => {
+     console.error("Search API error:", error);
+    });
   }
-  function closeSearch() {
-    setCollapse(true);
-  }
-  return (
-    <div
-      className={`${classes.search_wrapper} ${
-        isCollapsed ? "" : classes.wrapper_open
-      }`}
-    >
-      <BaseBackground></BaseBackground>
-      <div className={classes.search_bar} onClick={handleClick}>
-        <input
-          type="text"
-          className={classes.input}
-          disabled={isCollapsed}
-          placeholder="search"
-        />
-        <div className={classes.icon}>
-          <SearchIcon></SearchIcon>
-        </div>
-        <div onClick={closeSearch} className={classes.close}>
-          close
-        </div>
-      </div>
-      <div className={classes.search_content}>conent</div>
-    </div>
-  );
+ }, [searchParam]);
+
+ return <div></div>;
 }
+
 export default Search;

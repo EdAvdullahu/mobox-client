@@ -4,8 +4,9 @@ import classes from "./LoginPage.module.css";
 import ApiCall from "../../../Common/Api/ApiCall";
 import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
 import { UserActions } from "../../../Store/UserStore/user_reducer";
-import { ISong } from "../../../Pages/Song/types/ISong";
 import { IPlaylist } from "../../../Pages/Song/types/IPlaylist";
+import COOKIE from "../../../Common/Services/cookie.service";
+import router from "../../../Router/router";
 
 interface IUser {
  email: string;
@@ -19,8 +20,8 @@ interface IUserState {
  playlists: any;
 }
 
-const formatLikedSongs = (likedSongs: any) => {
- return likedSongs.map((like: any) => ({
+const formatLikedSongs = (likedSongs: any) =>
+ likedSongs.map((like: any) => ({
   songId: like.song.songId,
   name: like.song.name,
   releaseDate: like.song.releaseDate,
@@ -47,25 +48,14 @@ const formatLikedSongs = (likedSongs: any) => {
   isLiked: true,
   likedId: like.id,
  }));
-};
-interface ISongState {
- CurrentSong: ISong;
-}
-interface CurrentSongState {
- currentlyPlayingFrom: any;
- orderBy: string | null;
- asc: boolean;
- type: string | null;
-}
 
 function LoginPage() {
  const [uName, setUName] = useState("");
  const [password, setPassword] = useState("");
  const dispatch = useDispatch();
+ const username = COOKIE.getCookie("username");
 
- const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
+ const login = async () => {
   const res = await ApiCall.getNoAuth(ENDPOINTS.USER.WHO_AM_I(uName), null);
 
   const user: IUser = {
@@ -73,7 +63,7 @@ function LoginPage() {
    name: res.data.result.userName,
    id: res.data.result.userId,
   };
-  const Playlist: IPlaylist = {
+  const playlist: IPlaylist = {
    playlistId: "",
    isPublic: false,
    title: "Liked Songs",
@@ -83,15 +73,28 @@ function LoginPage() {
   };
 
   const userState: IUserState = {
-   user: user,
-   likedSongs: Playlist,
+   user,
+   likedSongs: playlist,
    playlists: res.data.result.playlists,
   };
   console.log("USERSTATE", userState);
 
   console.log("RES.DATA.RESULT.SONGLIKES", res.data.result.songLikes);
   dispatch(UserActions.setUser(userState));
+  COOKIE.setCookie("username", user.name);
+  COOKIE.setCookie("userId", user.id);
+  router.navigate("/music");
  };
+
+ const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  login();
+ };
+
+ if (username) {
+  setUName(username);
+  login();
+ }
 
  return (
   <form className={classes.main} onSubmit={handleLogin}>

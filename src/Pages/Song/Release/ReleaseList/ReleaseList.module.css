@@ -1,0 +1,21 @@
+@import '../../../../Assets/Css/Variables.css';
+
+.main {
+ display: flex;
+ flex-direction: column;
+ background-color: var(--black-trans30);
+ font-family: "Poppins";
+ color: var(--white-font);
+}
+
+.table_header {
+ width: 100%;
+ display: grid;
+ grid-template-columns: 5% 40% 20% 15% 10%;
+ border-bottom: 2px solid var(--white-font);
+}
+
+.list {
+ height: calc(100% - 80px);
+ overflow: auto;
+}

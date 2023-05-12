@@ -117,7 +117,6 @@ export const songSlice = createSlice({
    state.isPlaying = !state.isPlaying;
   },
   PlayNextSong: (state) => {
-   console.log("STATE", state.InnerPlayer);
    state.isPlaying = false;
    let currentId = state.CurrentSong?.songId;
    let index = state.InnerPlayer.songs.findIndex((item: ISong) => {
