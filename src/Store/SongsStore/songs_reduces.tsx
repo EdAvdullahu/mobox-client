@@ -1,5 +1,6 @@
 import { ISong } from "../../Pages/Song/types/ISong";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Lyric } from "../../Pages/Song/types/ILyrics";
 
 export interface Song {
  songId: number;
@@ -44,12 +45,16 @@ interface controllState {
 interface InnerSongState {
  InnerPlayer: any;
 }
+interface LyricsState {
+ lyrics: Lyric | null;
+}
 
 const initialState: SongState &
  PlayingState &
  CurrentSongState &
  controllState &
- InnerSongState = {
+ InnerSongState &
+ LyricsState = {
  CurrentSong: null,
  isPlaying: false,
  currentlyPlayingFrom: null,
@@ -60,6 +65,7 @@ const initialState: SongState &
  isShuffle: false,
  isRepeatingSong: false,
  isRepeatingPlaylist: true,
+ lyrics: null,
 };
 
 export const songSlice = createSlice({
@@ -186,6 +192,9 @@ export const songSlice = createSlice({
     state.isShuffle = true;
     state.InnerPlayer = shufflePlaylist(state.currentlyPlayingFrom);
    }
+  },
+  SetLyrics: (state, action: PayloadAction<LyricsState>) => {
+   state.lyrics = action.payload.lyrics;
   },
  },
 });

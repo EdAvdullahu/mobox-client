@@ -1,3 +1,5 @@
+import { Lyric } from "../../Pages/Song/types/ILyrics";
+
 export interface Song {
  songId: number;
  name: string;
@@ -104,6 +106,7 @@ export const PLAY_PREVIOUS = "PLAY_PREVIOUS";
 export const TOGGLE_REPEAT = "TOGGLE_REPEAT";
 export const PLAY_NEXT_EVENT = "PLAY_NEXT_EVENT";
 export const TOGGLE_SHUFFLE = "TOGGLE_SHUFFLE";
+export const SET_LYRICS = "SET_LYRICS";
 
 interface SetCurrentPlayingSong {
  type: typeof SET_CURRENT_SONG;
@@ -131,6 +134,10 @@ interface PlayNextEvent {
 interface ToggleShuffeling {
  type: typeof TOGGLE_SHUFFLE;
 }
+interface SetLyrics {
+ type: typeof SET_LYRICS;
+ payload: Lyric;
+}
 
 export type SongsSctionTypes =
  | SetCurrentPlayingSong
@@ -139,4 +146,5 @@ export type SongsSctionTypes =
  | PlayPreviousSong
  | ToggleRepeat
  | PlayNextEvent
- | ToggleShuffeling;
+ | ToggleShuffeling
+ | SetLyrics;

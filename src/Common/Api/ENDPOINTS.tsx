@@ -1,5 +1,7 @@
 const BASE_URL: string = "https://localhost:7005/api";
+const BASE_LYRICS_API: string = "https://localhost:7204/api";
 const useBasePath = (path: string) => `${BASE_URL}/${path}`;
+const useLyicsPath = (path: string) => `${BASE_LYRICS_API}/${path}`;
 interface Endpoints {
  USER: {
   NULL: () => string;
@@ -27,6 +29,9 @@ interface Endpoints {
    ID: (id: number) => string;
   };
   SONG: () => string;
+ };
+ LYRICS: {
+  BY_SONG: (id: string) => string;
  };
 }
 
@@ -57,6 +62,9 @@ const ENDPOINTS: Endpoints = {
  SONG: {
   LIKE: () => useBasePath("Song/like"),
   DISLIKE: (id) => useBasePath(`Song/like/${id}`),
+ },
+ LYRICS: {
+  BY_SONG: (id) => useLyicsPath(`Song/lyrics/song/${id}`),
  },
 };
 

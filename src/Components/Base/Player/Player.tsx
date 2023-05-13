@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowPink from "../../../Assets/Svg/ArrowPink";
 import classes from "./Player.module.css";
 import Lyrics from "../../Lyrics/Lyrics";
 import "../../../index.css";
 import ScrollElement from "../../ScrollElement";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SongState } from "../../../Store/SongsStore/songs_state";
 import MusicController from "./MusicController";
+import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
+import ApiCall from "../../../Common/Api/ApiCall";
+import { Lyric } from "../../../Pages/Song/types/ILyrics";
+import { SongActions } from "../../../Store/SongsStore/songs_reduces";
 
 interface PlayerProps {
  title?: string;
@@ -18,11 +22,36 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
  const [lyricsAreVisable, setLAV] = useState(false); // state variable to keep track of lyrics visibility
  const [lyricsAv, setLAv] = useState(false); // state variable to keep track of the availability of lyrics
-
+ const dispatch = useDispatch();
  const currentSong = useSelector(
   (state: SongState) => state.song?.CurrentSong ?? null
  );
+ const lyrics = useSelector((state: SongState) => state.song.lyrics ?? null);
+ useEffect(() => {
+  const fetchLyrics = async () => {
+   if (currentSong?.songId) {
+    try {
+     const response = await ApiCall.getNoAuth(
+      ENDPOINTS.LYRICS.BY_SONG(currentSong?.songId + ""),
+      null
+     );
+     const lyrics: Lyric = response.data.result;
+     if (!lyrics) {
+      setLAV(false);
+      setTimeout(() => {
+       setLAv(false);
+      }, 500);
+     }
+     console.log("LYRICS", lyrics);
+     dispatch(SongActions.SetLyrics({ lyrics: lyrics }));
+    } catch (error) {
+     console.error("Error retrieving song lyrics:", error);
+    }
+   }
+  };
 
+  fetchLyrics();
+ }, [currentSong?.songId]);
  /**
   * This function toggles the visibility of lyrics.
   *
@@ -39,61 +68,12 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
   }
  }
 
- interface lyricSong {
-  lyric: string;
-  annotation: string;
- }
-
- const tempLyrics: lyricSong[] = [
-  {
-   lyric:
-    "Lorem ipsum dolor sit amet consectetur. Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-   annotation:
-    "Lorem ipsum dolor sit amet consectetur. Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-  },
-  {
-   lyric: "Vulputate vel ut imperdiet amet lacus.",
-   annotation: "Vulputate vel ut imperdiet amet lacus.",
-  },
-  {
-   lyric:
-    "Cursus id eget enim amet mauris vivamus morbi a praesent. Dui habitasse a interdum pharetra posuere tincidunt tristique odio. Lorem ipsum dolor sit amet consectetur.",
-   annotation:
-    "Cursus id eget enim amet mauris vivamus morbi a praesent. Dui habitasse a interdum pharetra posuere tincidunt tristique odio. Lorem ipsum dolor sit amet consectetur.",
-  },
-  {
-   lyric: "Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-   annotation:
-    "Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-  },
-  {
-   lyric:
-    "Lorem ipsum dolor sit amet consectetur. Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-   annotation:
-    "Lorem ipsum dolor sit amet consectetur. Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-  },
-  {
-   lyric: "Vulputate vel ut imperdiet amet lacus.",
-   annotation: "Vulputate vel ut imperdiet amet lacus.",
-  },
-  {
-   lyric:
-    "Cursus id eget enim amet mauris vivamus morbi a praesent. Dui habitasse a interdum pharetra posuere tincidunt tristique odio. Lorem ipsum dolor sit amet consectetur.",
-   annotation:
-    "Cursus id eget enim amet mauris vivamus morbi a praesent. Dui habitasse a interdum pharetra posuere tincidunt tristique odio. Lorem ipsum dolor sit amet consectetur.",
-  },
-  {
-   lyric: "Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-   annotation:
-    "Sagittis sed scelerisque nulla adipiscing curabitur adipiscing a.",
-  },
- ];
  type CSSProperties = {
   [key: string]: string | number;
  };
 
  const lyricStyle: CSSProperties = {
-  backgroundColor: "var(--neon-pink60)",
+  backgroundColor: "var(--neon-pink90)",
   marginTop: "20px",
   height: "calc(100% - 100px)",
   display: "flex",
@@ -130,24 +110,26 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
       ></MusicController>
      )}
     </div>
-    <div className={classes.lyrics} onClick={displayLyrics}>
-     <div
-      className={`${classes.array} ${
-       lyricsAreVisable ? classes.array_open : ""
-      }`}
-     >
-      <ArrowPink></ArrowPink>
+    {lyrics && (
+     <div className={classes.lyrics} onClick={displayLyrics}>
+      <div
+       className={`${classes.array} ${
+        lyricsAreVisable ? classes.array_open : ""
+       }`}
+      >
+       <ArrowPink></ArrowPink>
+      </div>
+      Lyrics
      </div>
-     Lyrics
-    </div>
+    )}
    </div>
    {lyricsAv && (
     <ScrollElement divStyle={lyricStyle} shadow={"rgb(0 0 0 / 0.5)"}>
-     {tempLyrics.map((item, index) => (
+     {lyrics?.verses?.map((item, index) => (
       <Lyrics
        key={index}
-       lyric={item.lyric}
-       annotation={item.annotation}
+       lyric={item.text}
+       annotation={item.annotation.annotationText}
        isActive={activeLyricIndex === index}
        onClick={() => handleClick(index)}
       ></Lyrics>
