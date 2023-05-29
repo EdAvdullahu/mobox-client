@@ -32,7 +32,7 @@ function ReleaseBase() {
      dispatch(ReleaseActions.SetRelease({ release }));
     } else {
      const res = await ApiCall.getNoAuth(
-      ENDPOINTS.SONG_API.RELEASE.ID(+releaseId),
+      ENDPOINTS.SONGS.RELEASE.GET(+releaseId),
       null
      );
 

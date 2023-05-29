@@ -18,6 +18,10 @@ const initialState: UserState = {
  playlists: null,
 };
 
+interface newPlaylsit {
+ playlist: any;
+}
+
 export const userSlice = createSlice({
  name: "user",
  initialState: initialState,
@@ -37,6 +41,11 @@ export const userSlice = createSlice({
    state.likedSongs.songs = state.likedSongs.songs.filter(
     (item: any) => item?.likedId !== action.payload
    );
+  },
+  addPlaylist: (state, action: PayloadAction<newPlaylsit>) => {
+   if (Array.isArray(state.playlists)) {
+    state.playlists.push(action.payload.playlist);
+   }
   },
  },
 });

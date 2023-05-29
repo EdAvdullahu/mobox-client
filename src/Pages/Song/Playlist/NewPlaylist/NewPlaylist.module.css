@@ -1,0 +1,86 @@
+@import '../../../../Assets/Css/Variables.css';
+
+.main {
+ position: absolute;
+ z-index: 100;
+ width: 100vw;
+ height: 100vh;
+ top: 0;
+ left: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: var(--backgrount-trans);
+}
+
+.body {
+ display: flex;
+ flex-direction: column;
+ padding: 20px;
+ position: relative;
+}
+
+.exit {
+ border: none;
+ outline: none;
+ padding: none;
+ margin: none;
+ color: var(--neon-pink);
+ cursor: pointer;
+ position: absolute;
+ top: 23px;
+ left: 17px;
+ font-size: 1.2rem;
+ font-weight: bold;
+ background-color: var(--gray-font);
+ border-radius: 50px;
+}
+
+.exit:hover {
+ background-color: var(--logo);
+}
+
+.wrapper {
+ color: var(--white-font);
+ border-color: var(--white-font);
+ border-radius: 20px;
+ padding: 30px;
+ background-color: var(--black);
+}
+
+.body form {
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+.toggle {
+ display: flex;
+ font-size: .9rem;
+ flex-direction: row;
+ justify-content: space-around;
+ color: var(--neon-pink60);
+}
+
+.toggle_active {
+ color: var(--neon-pink);
+ box-shadow: 0 0 0 var(--neon-pink);
+}
+
+.input {
+ color: var(--neon-pink);
+ padding: 10px;
+ margin: 0;
+ border: none;
+ border-bottom: solid 1px var(--neon-pink);
+ background-color: transparent;
+ outline: none;
+}
+
+.submit {
+ background-color: var(--neon-pink90);
+ color: var(--white-font);
+ border: 2px solid var(--white-font);
+ padding: 5px;
+ outline: none;
+}

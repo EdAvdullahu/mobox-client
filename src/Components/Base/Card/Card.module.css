@@ -3,7 +3,7 @@
 .card {
   margin: 0;
   padding: 20px;
-  background-color: var(--black-trans40);
+  background-color: var(--card);
   width: auto;
   height: auto;
   border-radius: 10px;

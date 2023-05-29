@@ -14,10 +14,11 @@ import ShuffleButton from "../../../Assets/Svg/ShuffleButton";
 
 type Props = {
  src: string;
+ audioRef: React.RefObject<HTMLAudioElement>;
 };
 
-const MusicController: React.FC<Props> = ({ src }) => {
- const audioRef = useRef<HTMLAudioElement>(null);
+const MusicController: React.FC<Props> = ({ src, audioRef }) => {
+ // const audioRef = useRef<HTMLAudioElement>(null);
  const isPlaying = useSelector((state: SongState) => state.song.isPlaying);
  const currentSong = useSelector((state: SongState) => state.song.CurrentSong);
  const replaySong = useSelector(

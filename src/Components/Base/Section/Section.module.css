@@ -1,0 +1,43 @@
+@import "../../../Assets/Css/Variables.css";
+
+.main {
+ padding: 20px;
+ height: 100%;
+ width: 100%;
+ background-color: var(--black-trans30);
+ display: flex;
+ flex-direction: column;
+ gap: 30px;
+}
+
+.user_info {
+ color: var(--gray-font);
+ display: flex;
+ flex-direction: row;
+ border-bottom: solid 1px var(--gray-font);
+}
+
+.user_img {
+ width: 50px;
+ height: 50px;
+ overflow: hidden;
+ border-radius: 500px;
+}
+
+.user_img img {
+ width: 50px;
+ height: auto;
+ background-size: contain;
+}
+
+.friends {
+ color: var(--gray-font);
+ text-transform: uppercase;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+
+.friends :first-child {
+ font-weight: bolder;
+}

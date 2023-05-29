@@ -21,6 +21,7 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
+  margin-left: 20px;
 }
 
 .premium {
@@ -55,13 +56,11 @@
   background-color: var(--black-trans40);
   left: 15px;
   border-radius: 50px;
-  transition: all 1s ease-in-out;
 }
 
 .search_bar {
   display: flex;
   flex-direction: row;
-  transition: all ease-in-out 1s;
   text-decoration: none !important;
 }
 
@@ -85,5 +84,5 @@
 .icon {
   position: absolute;
   top: 6px;
-  left: 215px;
+  left: 235px;
 }

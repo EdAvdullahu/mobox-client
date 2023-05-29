@@ -1,0 +1,10 @@
+@import "../../../Assets/Css/Variables.css";
+
+.main {
+ font-size: 2rem;
+ font-family: 'Poppins';
+ color: var(--finder);
+ height: 100%;
+ width: 300px;
+ text-align: center;
+}

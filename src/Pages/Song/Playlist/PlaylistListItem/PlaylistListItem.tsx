@@ -66,19 +66,20 @@ function PlayListListItem({ song, order, playlist }: Props) {
 
  function likeDislikeSong() {
   if (song.isLiked) {
-   ApiCall.deleteNoAuth(ENDPOINTS.SONG.DISLIKE(song.likedId), null).then(
-    (res) => {
-     if (res.data.result) {
-      dispatch(UserActions.removeLikedSongs(song.likedId));
-     }
+   ApiCall.deleteNoAuth(
+    ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song.likedId),
+    null
+   ).then((res) => {
+    if (res.data.result) {
+     dispatch(UserActions.removeLikedSongs(song.likedId));
     }
-   );
+   });
   } else {
    const likeS = {
     userId: userId,
     songId: song.songId,
    };
-   ApiCall.postNoAuth(ENDPOINTS.SONG.LIKE(), likeS).then((res) => {
+   ApiCall.postNoAuth(ENDPOINTS.USER.SONGS.LIKES.LIKE(), likeS).then((res) => {
     console.log(res.data);
     if (res.data.result) {
      if (userId) {

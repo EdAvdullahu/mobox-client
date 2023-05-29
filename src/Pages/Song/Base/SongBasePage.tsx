@@ -1,31 +1,40 @@
+import { useEffect, useRef } from "react";
 import Player from "../../../Components/Base/Player/Player";
 import Sidebar from "../../../Components/Base/Sidebar/Sidebar";
-import Card from "../../../Components/Base/Card/Card";
 import classes from "./SongBasePage.module.css";
 import { Outlet } from "react-router-dom";
-import ScrollElement from "../../../Components/ScrollElement";
+import ApiCall from "../../../Common/Api/ApiCall";
+import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
+import { useDispatch, useSelector } from "react-redux";
+import { SongState } from "../../../Store/SongsStore/songs_state";
+import { SongActions } from "../../../Store/SongsStore/songs_reduces";
+import AudioContrller from "../../../Components/Base/Player/AudioController";
+
 function SongBasePage() {
- type CSSProperties = {
-  [key: string]: string | number;
- };
- const innerContent: CSSProperties = {
-  height: "calc(100% - 300px)",
-  display: "flex",
-  flexDirection: "column",
-  overflow: "auto",
- };
+ const dispatch = useDispatch();
+ const genres = useSelector((state: SongState) => state.song.genres);
+ useEffect(() => {
+  if (!genres) {
+   ApiCall.getNoAuth(ENDPOINTS.SONGS.GENRE.GET(), null).then((res) => {
+    if (res.data.result) {
+     dispatch(SongActions.SetGenres({ genres: res.data.result }));
+    }
+   });
+  }
+ }, [genres]);
+ const audioRef = useRef<HTMLAudioElement>(null);
  return (
   <div className={classes.base}>
    <div className={classes.nav}>
     <Sidebar></Sidebar>
    </div>
-   <div className={classes.content}>
-    {/* <ScrollElement divStyle={innerContent} shadow={"rgb(250 40 112 / 0.3)"}>
-          <Outlet />
-        </ScrollElement> */}
+   <div className={classes.content} id="song-portal-target">
     <Outlet />
    </div>
-   <Player title="Temporary" artist="6lack ft. Don Toliver" isLiked={false} />
+   <Player audioRef={audioRef} />
+   <div className={classes.volume}>
+    <AudioContrller audioRef={audioRef} />
+   </div>
   </div>
  );
 }

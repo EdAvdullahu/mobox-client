@@ -74,7 +74,7 @@ interface SongGenre {
  genre: Genre;
 }
 
-interface Genre {
+export interface Genre {
  genreId: number;
  name: string;
  description: string;
@@ -107,6 +107,7 @@ export const TOGGLE_REPEAT = "TOGGLE_REPEAT";
 export const PLAY_NEXT_EVENT = "PLAY_NEXT_EVENT";
 export const TOGGLE_SHUFFLE = "TOGGLE_SHUFFLE";
 export const SET_LYRICS = "SET_LYRICS";
+export const SET_GERNES = "SET_GENRES";
 
 interface SetCurrentPlayingSong {
  type: typeof SET_CURRENT_SONG;
@@ -138,6 +139,10 @@ interface SetLyrics {
  type: typeof SET_LYRICS;
  payload: Lyric;
 }
+interface SetGenres {
+ type: typeof SET_GERNES;
+ payload: Genre[];
+}
 
 export type SongsSctionTypes =
  | SetCurrentPlayingSong
@@ -147,4 +152,5 @@ export type SongsSctionTypes =
  | ToggleRepeat
  | PlayNextEvent
  | ToggleShuffeling
- | SetLyrics;
+ | SetLyrics
+ | SetGenres;

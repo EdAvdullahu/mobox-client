@@ -22,7 +22,7 @@ export default {
  },
  getNoAuth(endpoint: any, params: any | null) {
   if (params) {
-   return axios.get(endpoint, params);
+   return axios.get(endpoint, { params });
   }
   return axios.get(endpoint);
  },

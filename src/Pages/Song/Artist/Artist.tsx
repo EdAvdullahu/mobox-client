@@ -22,7 +22,7 @@ function Artist() {
     setLoading(true);
 
     const response = await ApiCall.getNoAuth(
-     ENDPOINTS.SONG_API.ARTIST(artistId + ""),
+     ENDPOINTS.ARTIST.GET(artistId + ""),
      null
     );
 

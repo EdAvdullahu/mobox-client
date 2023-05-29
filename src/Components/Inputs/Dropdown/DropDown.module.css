@@ -1,0 +1,9 @@
+.dropdown {
+ position: absolute;
+ top: 38px;
+ right: -1px;
+ padding: 0;
+ text-align: left;
+ border-radius: 0.25rem;
+ z-index: 1000;
+}

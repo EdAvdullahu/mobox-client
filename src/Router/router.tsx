@@ -3,7 +3,6 @@ import BasePage from "../Pages/Base/BasePage";
 import SongBasePage from "../Pages/Song/Base/SongBasePage";
 import PodcastBasePage from "../Pages/Base/PodcastBase/PodcastBasePage";
 import Explore from "../Pages/Song/Explore";
-import SearchBasePage from "../Pages/Base/SearchBase/SearchBase";
 import UserBasePage from "../Pages/Auth/Base/BasePage";
 import LoginPage from "../Pages/Auth/Login/LoginPage";
 import Playlist from "../Pages/Song/Playlist/Playlist";
@@ -13,7 +12,8 @@ import Artist from "../Pages/Song/Artist/Artist";
 import ArtistInfo from "../Pages/Song/Artist/BasicInfo/ArtistInfo";
 import AllArtistInfo from "../Pages/Song/Artist/AllInfo/AllArtistInfo";
 import ReleaseBase from "../Pages/Song/Release/Release";
-import Search from "../Pages/Search/Search";
+import Search from "../Pages/Song/Search/Search";
+import VerifyEmail from "../Pages/Auth/Verify/VeriyEmail";
 
 const router = createBrowserRouter([
  {
@@ -24,7 +24,10 @@ const router = createBrowserRouter([
     index: false,
     path: "/user",
     element: <UserBasePage />,
-    children: [{ path: "/user/login", element: <LoginPage></LoginPage> }],
+    children: [
+     { path: "/user/login", element: <LoginPage></LoginPage> },
+     { path: "/user/verify/:token", element: <VerifyEmail /> },
+    ],
    },
    {
     index: false,
@@ -54,7 +57,6 @@ const router = createBrowserRouter([
     ],
    },
    { path: "/podcast", element: <PodcastBasePage /> },
-   { path: "/search", element: <SearchBasePage /> },
   ],
  },
 ]);

@@ -1,0 +1,111 @@
+@import "../../../../Assets/Css/Variables.css";
+
+.main {
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+ padding: 10px 0;
+ padding-bottom: 130px;
+}
+
+.result_wrapper {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ gap: 30px;
+ color: var(--white-font);
+ font-family: "Poppins";
+}
+
+.individual_result {
+ min-width: calc(50% - 15px);
+ width: 100%;
+}
+
+.innerCard {
+ display: flex;
+ flex-direction: column;
+ height: 320px;
+ width: 100%;
+}
+
+.innerCard hr {
+ width: 100%;
+ border-color: var(--gray-font);
+}
+
+.artists {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 20px
+}
+
+.artist {
+ display: flex;
+ width: calc(33% - 20px);
+ font-size: 0.8rem;
+ flex-direction: column;
+ text-decoration: none;
+ color: var(--neon-pink60);
+}
+
+.artist img {
+ height: 110px;
+ object-fit: cover;
+ width: 100%;
+}
+
+.songs {
+ display: flex;
+ flex-direction: column;
+}
+
+.advanced_img {
+ width: 60px;
+}
+
+.advanced_img img {
+ height: 60px;
+ object-fit: cover;
+ width: 100%;
+}
+
+.features {
+ color: var(--gray-font);
+ font-size: 0.7rem;
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ gap: 10px;
+}
+
+.nodata {
+ display: flex;
+ width: 100%;
+ height: 200px;
+ justify-content: center;
+ align-items: center;
+ font-size: 2rem;
+ color: var(--backdrop);
+}
+
+.releases {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 20px;
+}
+
+.release {
+ display: flex;
+ width: calc(25% - 20px);
+ font-size: 0.8rem;
+ flex-direction: column;
+ text-decoration: none;
+ color: var(--neon-pink60);
+}
+
+.release img {
+ height: 200px;
+ object-fit: cover;
+ width: 100%;
+}

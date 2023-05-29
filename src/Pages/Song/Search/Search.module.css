@@ -1,0 +1,39 @@
+@import '../../../Assets/Css/Variables.css';
+
+.main {
+ height: calc(100vh - 100px);
+ padding: 20px 10px;
+ margin: 0;
+ font-family: monospace;
+ position: relative;
+ gap: 20px;
+ display: flex;
+ flex-direction: column;
+}
+
+.search_by {
+ color: var(--gray-font);
+ font-size: 1.1rem;
+}
+
+.search_params {
+ display: flex;
+ border-bottom: solid 2px var(--gray-font);
+}
+
+.search_params div {
+ cursor: pointer;
+ padding: 5px 25px 5px 15px;
+ border-bottom: solid 2px transparent;
+ margin-bottom: -2px;
+}
+
+.active_search {
+ border-bottom: solid 2px var(--neon-pink) !important;
+}
+
+.result_wrapper {
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+}

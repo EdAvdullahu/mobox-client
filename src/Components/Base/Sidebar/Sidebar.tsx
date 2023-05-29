@@ -8,9 +8,17 @@ import classes from "./Sidebar.module.css";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../../Store/UserStore/user_state";
 import HeartFill from "../../../Assets/Svg/HeartFill";
+import { useState } from "react";
+import NewPlaylist from "../../../Pages/Song/Playlist/NewPlaylist/NewPlaylist";
+import Portal from "../../../Components/Portal/Portal";
 
 function Sidebar() {
+ const [createPlaylist, setCreatePlaylist] = useState(false);
+
  const playlists = useSelector((state: RootState) => state.user.playlists);
+ const handleToggle = () => {
+  setCreatePlaylist(!createPlaylist);
+ };
  return (
   <div className={classes.sidebar}>
    <div className={classes.logo}>
@@ -52,9 +60,18 @@ function Sidebar() {
     <div className={classes.menu_item}>
      <div className={classes.menu_item_title}>Playlist</div>
      <div className={classes.menu_item_list}>
-      <div className={classes.icon_wrapper}>
+      <div
+       className={classes.icon_wrapper}
+       style={{ cursor: "pointer" }}
+       onClick={handleToggle}
+      >
        <CreateNewPlaylistIcon /> Create New
       </div>
+      {createPlaylist && (
+       <Portal>
+        <NewPlaylist handleToggle={handleToggle} />
+       </Portal>
+      )}
       {playlists?.map((item: any, index: number) => (
        <div key={index} className={classes.icon_wrapper}>
         <MusicNoteGrey />

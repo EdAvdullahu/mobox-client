@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 import { formatLikedSongs } from "../../../../Common/Services/comon.services";
 import { ReleaseState } from "../../../../Store/ReleaseStore/release_state";
 import { Song } from "../../types/IArtist";
+import ReleaseItemAction from "./Action/ReleaseItemAction";
 
 interface Props {
  song: Song;
@@ -75,19 +76,22 @@ function ReleaseListItem({ song, order }: Props) {
 
  function likeDislikeSong() {
   if (song.isLiked) {
-   ApiCall.deleteNoAuth(ENDPOINTS.SONG.DISLIKE(song.likedId), null).then(
-    (res) => {
-     if (res.data.result) {
-      dispatch(UserActions.removeLikedSongs(song.likedId));
-     }
+   ApiCall.deleteNoAuth(
+    ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song.likedId),
+    null
+   ).then((res) => {
+    if (res.data.result) {
+     dispatch(UserActions.removeLikedSongs(song.likedId));
+     song.isLiked = false;
+     song.likedId = 0;
     }
-   );
+   });
   } else {
    const likeS = {
     userId: userId,
     songId: song.songId,
    };
-   ApiCall.postNoAuth(ENDPOINTS.SONG.LIKE(), likeS).then((res) => {
+   ApiCall.postNoAuth(ENDPOINTS.USER.SONGS.LIKES.LIKE(), likeS).then((res) => {
     console.log(res.data);
     if (res.data.result) {
      if (userId) {
@@ -104,13 +108,13 @@ function ReleaseListItem({ song, order }: Props) {
         dispatch(UserActions.resetLikedSongs(Playlist));
        }
       });
+      song.isLiked = true;
      }
-     song.isLiked = true;
     }
    });
   }
  }
-
+ const [action, setAction] = useState(false);
  return (
   <div
    onMouseLeave={() => {
@@ -159,6 +163,9 @@ function ReleaseListItem({ song, order }: Props) {
     </div>
     <div onClick={likeDislikeSong}>
      {song.isLiked ? <HeartFill /> : <HeartNoFill />}
+    </div>
+    <div className={classes.dots}>
+     <ReleaseItemAction song={song} />
     </div>
    </div>
   </div>

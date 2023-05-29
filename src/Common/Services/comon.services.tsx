@@ -79,3 +79,12 @@ export const addLikeData = (
  });
  return { ...playlist, songs: playlistWithLikes };
 };
+
+export const formatDuration = (duration: string): string => {
+ const [hours, minutes, seconds] = duration.split(":").map(Number);
+ const formattedMinutes = minutes.toString().padStart(2, "0");
+ const formattedSeconds = seconds.toString().padStart(2, "0");
+ return `${
+  hours > 0 ? hours + ":" : ""
+ }${formattedMinutes}:${formattedSeconds}`;
+};

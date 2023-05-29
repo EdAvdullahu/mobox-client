@@ -18,7 +18,7 @@ function Header() {
  return (
   <div className={classes.header}>
    <div className={classes.header_item}>
-    <NavLink to={"/music/search"}>
+    <NavLink to={`/${currentPath.split("/")[1]}/search`}>
      <div className={classes.search_bar}>
       <input
        type="text"

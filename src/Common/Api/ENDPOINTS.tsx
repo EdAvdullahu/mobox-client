@@ -1,70 +1,104 @@
-const BASE_URL: string = "https://localhost:7005/api";
 const BASE_LYRICS_API: string = "https://localhost:7204/api";
-const useBasePath = (path: string) => `${BASE_URL}/${path}`;
+const BASE_API: string = "https://localhost:7777/api";
+const useApi = (path: string) => `${BASE_API}/${path}`;
 const useLyicsPath = (path: string) => `${BASE_LYRICS_API}/${path}`;
 interface Endpoints {
  USER: {
   NULL: () => string;
-  USER_LOGIN: () => string;
-  USER_SIGNIN: () => string;
+  LOGIN: () => string;
+  SIGNIN: () => string;
+  REFRESH_TOKEN: () => string;
+  RESET_PASSWORD: () => string;
+  FORGOT_PASSWORD: () => string;
+  VERIFY_EMAIL: (token: string) => string;
   WHO_AM_I: (name: string) => string;
   LIKES: (id: number) => string;
- };
- PLAYLIST: {
-  ID: (id: string) => string;
-  COLLAB: () => string;
-  ADD_SONG: () => string;
-  LIKE: () => string;
- };
- SONG: {
-  LIKE: () => string;
-  DISLIKE: (id: number) => string;
- };
- SONG_API: {
-  ARTIST: (id: string) => string;
-  GENRES: () => string;
-  SEARCH: (name: string) => string;
-  RELEASE: {
-   RELEASE: () => string;
-   ID: (id: number) => string;
+  SONGS: {
+   PLAYLISTS: {
+    GET: (id: string) => string;
+    COLLAB: () => string;
+    ADD_SONG: () => string;
+    LIKE: () => string;
+    NEW: () => string;
+    USER: (id: number | string) => string;
+   };
+   LIKES: {
+    LIKE: () => string;
+    DISLIKE: (id: number) => string;
+   };
   };
-  SONG: () => string;
  };
- LYRICS: {
-  BY_SONG: (id: string) => string;
+ ARTIST: {
+  GET: (id: string) => string;
+ };
+ FILTER: {
+  GENRE: () => string;
+  CUSTOM: (name: string) => string;
+ };
+ SONGS: {
+  RELEASE: {
+   NEW: () => string;
+   GET: (id: number) => string;
+  };
+  SONG: {
+   GET: () => string;
+  };
+  LYRICS: {
+   GET: (id: string) => string;
+  };
+  GENRE: {
+   GET: () => string;
+  };
  };
 }
 
 const ENDPOINTS: Endpoints = {
  USER: {
-  NULL: () => useBasePath("User"),
-  USER_LOGIN: () => useBasePath("User/login"),
-  USER_SIGNIN: () => useBasePath("User/register"),
-  WHO_AM_I: (name) => useBasePath(`User/whoami/${name}`),
-  LIKES: (id) => useBasePath(`User/likes/${id}`),
- },
- PLAYLIST: {
-  ID: (id) => useBasePath(`Playlist/${id}`),
-  COLLAB: () => useBasePath("Playlist/collab"),
-  ADD_SONG: () => useBasePath("Playlit/song"),
-  LIKE: () => useBasePath("Playlit/like"),
- },
- SONG_API: {
-  ARTIST: (id) => useBasePath(`SongApi/artist/${id}`),
-  GENRES: () => useBasePath("SongApi/genre/filter"),
-  SEARCH: (name: string) => useBasePath(`SongApi/search/${name}`),
-  RELEASE: {
-   RELEASE: () => useBasePath("SongApi/release"),
-   ID: (id) => useBasePath(`SongApi/release/${id}`),
+  NULL: () => useApi("User/User"),
+  LOGIN: () => useApi("User/User/login"),
+  SIGNIN: () => useApi("User/User/register"),
+  VERIFY_EMAIL: (token) => useApi(`User/User/verify-email/${token}`),
+  FORGOT_PASSWORD: () => useApi(`User/User/forgot-password`),
+  REFRESH_TOKEN: () => useApi(`User/User/refresh-token`),
+  RESET_PASSWORD: () => useApi(`User/User/reset-password`),
+  WHO_AM_I: (name) => useApi(`Songs/User/whoami/${name}`),
+  LIKES: (id) => useApi(`Songs/User/likes/${id}`),
+  SONGS: {
+   PLAYLISTS: {
+    GET: (id) => useApi(`Songs/Playlist/${id}`),
+    COLLAB: () => useApi("Songs/Playlist/collab"),
+    ADD_SONG: () => useApi("Songs/Playlist/song"),
+    LIKE: () => useApi("Songs/Playlist/like"),
+    NEW: () => useApi("Songs/Playlist/playlist"),
+    USER: (id) => useApi(`Songs/Playlist/user/${id}`),
+   },
+   LIKES: {
+    LIKE: () => useApi("Songs/Song/like"),
+    DISLIKE: (id) => useApi(`Songs/Song/like/${id}`),
+   },
   },
-  SONG: () => useBasePath("SongApi/song"),
  },
- SONG: {
-  LIKE: () => useBasePath("Song/like"),
-  DISLIKE: (id) => useBasePath(`Song/like/${id}`),
+ ARTIST: {
+  GET: (id) => useApi(`Songs/SongApi/artist/${id}`),
  },
- LYRICS: {
-  BY_SONG: (id) => useLyicsPath(`Song/lyrics/song/${id}`),
+ FILTER: {
+  GENRE: () => useApi("Songs/SongApi/genre/filter"),
+  CUSTOM: (name: string) => useApi(`Songs/SongApi/search/${name}`),
+ },
+ SONGS: {
+  RELEASE: {
+   NEW: () => useApi("Songs/SongApi/release"),
+   GET: (id) => useApi(`Songs/SongApi/release/${id}`),
+  },
+  SONG: {
+   GET: () => useApi("Songs/Song"),
+  },
+  LYRICS: {
+   GET: (id) => useLyicsPath(`Lyrics/Song/lyrics/song/${id}`),
+  },
+  GENRE: {
+   GET: () => useApi("Songs/Genre"),
+  },
  },
 };
 

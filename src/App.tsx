@@ -77,7 +77,8 @@ function App() {
   };
   dispatch(UserActions.setUser(userState));
  };
-
+ // const location = useLocation();
+ // const currentPath = location.pathname;
  useEffect(() => {
   if (username && !user?.email) {
    login(username);
@@ -85,7 +86,9 @@ function App() {
  }, [userI]);
  useEffect(() => {
   if (!user?.email && !userI) {
-   router.navigate("/user/login");
+   // if (!currentPath.includes("verify")) {
+   // router.navigate("/user/login");
+   // }
   }
  }, [user]);
 

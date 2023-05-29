@@ -12,14 +12,10 @@ import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
 import ApiCall from "../../../Common/Api/ApiCall";
 import { Lyric } from "../../../Pages/Song/types/ILyrics";
 import { SongActions } from "../../../Store/SongsStore/songs_reduces";
-
-interface PlayerProps {
- title?: string;
- artist?: string;
- isLiked?: boolean;
-}
-
-const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
+type Props = {
+ audioRef: React.RefObject<HTMLAudioElement>;
+};
+const Player: React.FC<Props> = ({ audioRef }) => {
  const [lyricsAreVisable, setLAV] = useState(false); // state variable to keep track of lyrics visibility
  const [lyricsAv, setLAv] = useState(false); // state variable to keep track of the availability of lyrics
  const dispatch = useDispatch();
@@ -32,7 +28,7 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
    if (currentSong?.songId) {
     try {
      const response = await ApiCall.getNoAuth(
-      ENDPOINTS.LYRICS.BY_SONG(currentSong?.songId + ""),
+      ENDPOINTS.SONGS.LYRICS.GET(currentSong?.songId + ""),
       null
      );
      const lyrics: Lyric = response.data.result;
@@ -106,6 +102,7 @@ const Player: React.FC<PlayerProps> = (props: PlayerProps) => {
     <div className={classes.control_wrapper}>
      {currentSong && (
       <MusicController
+       audioRef={audioRef}
        src={currentSong?.path ? currentSong?.path : ""}
       ></MusicController>
      )}

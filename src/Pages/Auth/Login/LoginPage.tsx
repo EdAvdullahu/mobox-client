@@ -54,6 +54,10 @@ function LoginPage() {
  const [password, setPassword] = useState("");
  const dispatch = useDispatch();
  const username = COOKIE.getCookie("username");
+ const user = {
+  userName: uName,
+  password: password,
+ };
 
  const login = async () => {
   const res = await ApiCall.getNoAuth(ENDPOINTS.USER.WHO_AM_I(uName), null);
