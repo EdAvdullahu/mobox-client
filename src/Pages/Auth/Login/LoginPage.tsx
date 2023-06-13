@@ -58,10 +58,20 @@ function LoginPage() {
   userName: uName,
   password: password,
  };
-
+ const url = COOKIE.getCookie("desiredLocation")?.replace("%2F", "/");
+ const Login = async () => {
+  const res = await ApiCall.postNoAuth(ENDPOINTS.USER.LOGIN(), user);
+  if (res.data.isSuccess) {
+   COOKIE.setCookie("userToken", res.data.result.token);
+   COOKIE.setCookie("refreshToken", res.data.result.refreshToken);
+   COOKIE.setCookie("role", res.data.result.role);
+   COOKIE.setCookie("uid", res.data.result.id);
+   login();
+  }
+ };
  const login = async () => {
   const res = await ApiCall.getNoAuth(ENDPOINTS.USER.WHO_AM_I(uName), null);
-
+  console.log("WHO", res.data);
   const user: IUser = {
    email: "test",
    name: res.data.result.userName,
@@ -75,24 +85,24 @@ function LoginPage() {
    description: "A list of liked songs",
    songs: formatLikedSongs(res.data.result.songLikes),
   };
-
   const userState: IUserState = {
    user,
    likedSongs: playlist,
    playlists: res.data.result.playlists,
   };
-  console.log("USERSTATE", userState);
-
-  console.log("RES.DATA.RESULT.SONGLIKES", res.data.result.songLikes);
   dispatch(UserActions.setUser(userState));
   COOKIE.setCookie("username", user.name);
   COOKIE.setCookie("userId", user.id);
-  router.navigate("/music");
+  if (url?.includes("login") || url?.includes("sign-in")) {
+   router.navigate("/music");
+  } else if (url) {
+   router.navigate(url);
+  }
  };
 
  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  login();
+  Login();
  };
 
  if (username) {

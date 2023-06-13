@@ -21,6 +21,7 @@ interface Endpoints {
     LIKE: () => string;
     NEW: () => string;
     USER: (id: number | string) => string;
+    GET_COLLABS: (id: string) => string;
    };
    LIKES: {
     LIKE: () => string;
@@ -30,6 +31,7 @@ interface Endpoints {
  };
  ARTIST: {
   GET: (id: string) => string;
+  FEATURE: (name: string) => string;
  };
  FILTER: {
   GENRE: () => string;
@@ -42,6 +44,7 @@ interface Endpoints {
   };
   SONG: {
    GET: () => string;
+   NEW: () => string;
   };
   LYRICS: {
    GET: (id: string) => string;
@@ -71,6 +74,7 @@ const ENDPOINTS: Endpoints = {
     LIKE: () => useApi("Songs/Playlist/like"),
     NEW: () => useApi("Songs/Playlist/playlist"),
     USER: (id) => useApi(`Songs/Playlist/user/${id}`),
+    GET_COLLABS: (id) => useApi(`Songs/Playlist/collab/${id}`),
    },
    LIKES: {
     LIKE: () => useApi("Songs/Song/like"),
@@ -80,6 +84,7 @@ const ENDPOINTS: Endpoints = {
  },
  ARTIST: {
   GET: (id) => useApi(`Songs/SongApi/artist/${id}`),
+  FEATURE: (name) => useApi(`Songs/Artist/name/${name}`),
  },
  FILTER: {
   GENRE: () => useApi("Songs/SongApi/genre/filter"),
@@ -92,6 +97,7 @@ const ENDPOINTS: Endpoints = {
   },
   SONG: {
    GET: () => useApi("Songs/Song"),
+   NEW: () => useApi(`Songs/SongApi/song`),
   },
   LYRICS: {
    GET: (id) => useLyicsPath(`Lyrics/Song/lyrics/song/${id}`),

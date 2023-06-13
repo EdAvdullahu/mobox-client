@@ -53,6 +53,9 @@ function App() {
  const userI = COOKIE.getCookie("userId");
  const dispatch = useDispatch();
  const username = COOKIE.getCookie("username");
+ if (!userI) {
+  COOKIE.setCookie("desiredLocation", router.state.location.pathname);
+ }
  const login = async (username: string) => {
   const res = await ApiCall.getNoAuth(ENDPOINTS.USER.WHO_AM_I(username), null);
 
@@ -77,8 +80,7 @@ function App() {
   };
   dispatch(UserActions.setUser(userState));
  };
- // const location = useLocation();
- // const currentPath = location.pathname;
+
  useEffect(() => {
   if (username && !user?.email) {
    login(username);
@@ -86,9 +88,10 @@ function App() {
  }, [userI]);
  useEffect(() => {
   if (!user?.email && !userI) {
-   // if (!currentPath.includes("verify")) {
-   // router.navigate("/user/login");
-   // }
+   const currentPath = router.state.location.pathname;
+   if (!currentPath.includes("verify")) {
+    router.navigate("/user/login");
+   }
   }
  }, [user]);
 

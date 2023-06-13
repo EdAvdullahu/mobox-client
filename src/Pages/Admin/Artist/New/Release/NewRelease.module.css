@@ -1,0 +1,99 @@
+@import '../../../../../Assets/Css/Variables.css';
+
+.main {
+ width: 70%;
+ margin: 0 auto;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ padding: 20px 0;
+}
+
+.input_group {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+}
+
+.divider {
+ width: 100%;
+ border-bottom: 1px solid var(--logo);
+}
+
+.divider_dark {
+ width: 100%;
+ border-bottom: 1px solid var(--background);
+}
+
+.save {
+ width: 120px;
+ outline: none;
+ border: none;
+ color: var(--logo);
+ background-color: var(--finder);
+ height: 25px;
+ border-radius: 10px;
+}
+
+.add_song {
+ border: none;
+ outline: none;
+ height: max-content;
+ width: max-content;
+ margin: 0 auto;
+ display: flex;
+ gap: 10px;
+ color: var(--finder);
+ cursor: pointer;
+ justify-content: center;
+ align-items: center;
+}
+
+.plus {
+ background-color: var(--finder);
+ color: var(--white-font);
+ height: 20px;
+ width: 20px;
+ border-radius: 500px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.songs {
+ height: 450px;
+ overflow: auto;
+}
+
+.tracking_screen {
+ position: absolute;
+ background-color: var(--gray-trans58);
+ width: 100vw;
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ top: 10px;
+ left: 0;
+ z-index: 100000000;
+}
+
+.tracking_content {
+ background-color: var(--logo);
+ width: 400px;
+ height: auto;
+ border-radius: 10px;
+ padding: 10px;
+ display: flex;
+ flex-direction: column;
+}
+
+.track {
+ display: flex;
+ width: 100%;
+ justify-content: space-between;
+}
+
+.progress {
+ background-color: var(--black-trans30);
+}

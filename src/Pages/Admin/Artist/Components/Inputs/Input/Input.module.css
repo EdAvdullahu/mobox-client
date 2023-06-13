@@ -1,0 +1,62 @@
+@import '../../../../../../Assets/Css/Variables.css';
+
+.input_wrapper {
+ display: flex;
+ flex-direction: row;
+ width: 300px;
+ gap: 10px;
+ justify-content: space-between;
+}
+
+.label {
+ width: 130px;
+ color: var(--logo);
+ font-family: 'Poppins';
+ text-transform: capitalize;
+}
+
+.input {
+ border: none;
+ outline: none;
+ background-color: var(--black-trans40);
+ color: var(--logo);
+ padding: 5px 10px;
+ border-radius: 11px;
+ height: 17px;
+ width: 150px;
+}
+
+.disabled {
+ opacity: 0.7;
+}
+
+.file_wrapper {
+ position: relative;
+ display: flex;
+ background-color: var(--black-trans40);
+ color: var(--logo);
+ padding: 5px 10px;
+ border-radius: 11px;
+ height: 17px;
+ width: 150px;
+ overflow: hidden;
+ align-items: center;
+ font-size: 0.85rem;
+}
+
+.file {
+ opacity: 0;
+ position: absolute;
+ z-index: -1;
+}
+
+.file_label {
+ position: absolute;
+ z-index: 999999;
+ top: 0;
+ right: 0;
+ padding: 0 5px;
+ padding-top: 4px;
+ background-color: var(--finder);
+ height: 100%;
+}

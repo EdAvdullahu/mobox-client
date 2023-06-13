@@ -1,0 +1,29 @@
+@import '../../../../../../Assets/Css/Variables.css';
+
+.input_wrapper {
+ display: flex;
+ flex-direction: row;
+ width: 300px;
+ gap: 10px;
+ justify-content: space-between;
+}
+
+.label {
+ width: 130px;
+ color: var(--logo);
+ font-family: 'Poppins';
+ text-transform: capitalize;
+}
+
+.input {
+ border: none;
+ outline: none;
+ background-color: var(--black-trans40);
+ color: var(--logo);
+ padding: 5px 10px;
+ border-radius: 11px;
+}
+
+.disabled {
+ opacity: 0.7;
+}

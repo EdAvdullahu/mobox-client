@@ -1,0 +1,18 @@
+@import "../../../../Assets/Css/Variables.css";
+
+.main {
+ display: grid;
+ grid-template-areas: 'nav main';
+ grid-template-columns: 15% 85%;
+ height: 100vh;
+}
+
+.navigation {
+ grid-area: nav;
+ background-color: var(--backgrount-trans);
+}
+
+.content {
+ grid-area: main;
+ padding: 20px 50px;
+}

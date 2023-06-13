@@ -1,0 +1,26 @@
+@import '../../../../../../Assets/Css/Variables.css';
+
+.custom-multiselect-input-release .dropdown-container {
+ border: none;
+ outline: none;
+ background-color: var(--black-trans40);
+ color: var(--logo);
+ padding: 5px 10px;
+ border-radius: 11px;
+ height: 25px;
+ width: 165px;
+}
+
+.custom-multiselect-input-release .dropdown-container .dropdown-heading {
+ height: 17px;
+ width: 165px;
+}
+
+.custom-multiselect-input-release .dropdown-container .dropdown-content>div {
+ background-color: var(--black-trans40);
+ color: var(--logo);
+}
+
+.custom-multiselect-input-release .dropdown-container .options:hover {
+ background-color: var(--black-trans50);
+}

@@ -1,0 +1,36 @@
+@import "../../Assets/Css/Variables.css";
+
+.toast_header {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ align-items: center;
+}
+
+@keyframes slide-in {
+ from {
+  transform: translateX(30px);
+  opacity: 0;
+ }
+
+ to {
+  transform: translateX(0px);
+  opacity: 1;
+ }
+}
+
+.button {
+ background: none;
+ border: none;
+ color: var(--gray-font);
+ font-weight: 900;
+ outline: none;
+ cursor: pointer;
+ border-radius: 8px;
+ padding: 4px 8px;
+}
+
+.button:hover {
+ background-color: var(--gray-font);
+ color: var(--finder);
+}

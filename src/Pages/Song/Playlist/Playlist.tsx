@@ -11,12 +11,15 @@ import { ISong } from "../types/ISong";
 import Collabs from "../../../Assets/Svg/Collabs";
 import Portal from "../../../Components/Portal/Portal";
 import PlaylistCollaborators from "./Collaborators/PlaylistCollaborators";
+import Share from "../../../Assets/Svg/Share";
+import { toast } from "../../../Components/Toast/ToastManager";
 
 function Playlist() {
  const { playlistId } = useParams<{ playlistId: string }>();
  const [playlist, setPlaylist] = useState<IPlaylist | undefined>(undefined);
  const likedSongs = useSelector((state: RootState) => state.user.likedSongs);
 
+ // add like data if song is in liked playlist
  const addLikeData = (playlist: IPlaylist): IPlaylist => {
   const playlistWithLikes = playlist.songs.map((item: ISong) => ({
    ...item,
@@ -33,12 +36,13 @@ function Playlist() {
     });
    }
   });
-  console.log("playlist with likes", playlistWithLikes);
   return { ...playlist, songs: playlistWithLikes };
  };
+
  useEffect(() => {
   if (playlist) setPlaylist(addLikeData(playlist));
  }, [likedSongs]);
+
  useEffect(() => {
   const fetchPlaylist = async () => {
    try {
@@ -63,6 +67,26 @@ function Playlist() {
  const handleToggle = () => {
   setEditCollabs(!editCollabs);
  };
+
+ // copy url to clipboard
+ const handleCopyClick = () => {
+  const currentURL = window.location.href;
+  navigator.clipboard
+   .writeText(currentURL)
+   .then(() => {
+    toast.show({
+     id: "",
+     title: "Success",
+     content: "Link copied to clipboard",
+     duration: 3000,
+    });
+    // toast.destroy(id);
+   })
+   .catch((error) => {
+    console.error("Failed to copy URL to clipboard:", error);
+   });
+ };
+
  return (
   <div className={classes.main}>
    <div className={classes.header}>
@@ -78,13 +102,17 @@ function Playlist() {
      </div>
      <div className={classes.actions}>
       <button className={classes.playnow}>Play now</button>
-      <div>share</div>
-      <Collabs />
-
+      <div onClick={handleCopyClick}>
+       <Share />
+      </div>
+      <div onClick={handleToggle}>
+       <Collabs />
+      </div>
       {editCollabs && (
        <Portal>
         <PlaylistCollaborators
          handleToggle={handleToggle}
+         playlist={playlist}
         ></PlaylistCollaborators>
        </Portal>
       )}

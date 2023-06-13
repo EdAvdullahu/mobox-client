@@ -1,0 +1,144 @@
+@import '../../../../Assets/Css/Variables.css';
+
+.main {
+ position: absolute;
+ z-index: 100;
+ width: 100vw;
+ height: 100vh;
+ top: 0;
+ left: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: var(--backgrount-trans);
+}
+
+.body {
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ color: var(--white-font);
+ border-color: var(--white-font);
+ border-radius: 20px;
+ background-color: var(--black);
+}
+
+.header {
+ color: var(--gray-font);
+ padding: 5px 10px;
+}
+
+.content {
+ display: flex;
+ flex-direction: column;
+ padding: 10px;
+ min-width: 300px;
+}
+
+.exit {
+ border: none;
+ outline: none;
+ padding: none;
+ margin: none;
+ color: var(--neon-pink);
+ cursor: pointer;
+ position: absolute;
+ top: 23px;
+ left: 17px;
+ font-size: 1.2rem;
+ font-weight: bold;
+ background-color: var(--gray-font);
+ border-radius: 50px;
+}
+
+.exit:hover {
+ background-color: var(--logo);
+}
+
+.toggle {
+ display: flex;
+ font-size: .9rem;
+ flex-direction: row;
+ justify-content: space-around;
+ color: var(--neon-pink60);
+}
+
+.toggle_active {
+ color: var(--neon-pink);
+ box-shadow: 0 0 0 var(--neon-pink);
+}
+
+.input {
+ color: var(--neon-pink);
+ padding: 10px;
+ margin: 0;
+ border: none;
+ border-bottom: solid 1px var(--neon-pink);
+ background-color: transparent;
+ outline: none;
+}
+
+.submit {
+ background-color: var(--neon-pink90);
+ color: var(--white-font);
+ border: 2px solid var(--white-font);
+ padding: 5px;
+ outline: none;
+}
+
+.collab_item {
+ width: 100%;
+ padding: 0;
+ margin: 0;
+ transition: all ease-in-out 0.5s;
+ display: flex;
+ flex-direction: column;
+ height: 30px;
+ overflow: hidden;
+ color: var(--logo);
+ margin-bottom: 15px;
+ font-family: 'Kodchasan';
+ font-size: 1.5rem;
+}
+
+.collab_active {
+ height: 130px;
+}
+
+.visable {
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+}
+
+.arrow_base {
+ display: flex;
+ align-items: flex-start;
+ transition: all ease-in-out 0.5s;
+}
+
+.arrow_active {
+ transform: rotateZ(180deg);
+}
+
+.actions {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+}
+
+.permissions {
+ font-size: 1rem;
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+ width: 70%;
+}
+
+.buttons {
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-end;
+ align-items: flex-end;
+ width: 30%;
+}

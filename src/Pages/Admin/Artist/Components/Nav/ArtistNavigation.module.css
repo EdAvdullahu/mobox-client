@@ -1,0 +1,49 @@
+@import "../../../../../Assets/Css/Variables.css";
+
+.nav {
+ display: flex;
+ flex-direction: column;
+ padding: 10px;
+}
+
+
+.for_artists {
+ position: absolute;
+ bottom: 5px;
+ left: 30%;
+}
+
+.links {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+
+.go_home {
+ font-family: 'Kodchasan';
+ font-size: 1.3rem;
+ color: var(--logo);
+ text-decoration: none;
+ margin: 10px 5px;
+}
+
+.link_group {
+ font-family: 'Kodchasan';
+ display: flex;
+ flex-direction: column;
+ color: var(--white-font);
+ border-color: var(--white-trans50);
+ border-radius: 10px;
+}
+
+.link {
+ text-decoration: none;
+ font-family: Kodchasan;
+ color: var(--logo);
+}
+
+.legend {
+ font-family: 'Kodchasan';
+ color: var(--logo);
+ text-transform: uppercase;
+}

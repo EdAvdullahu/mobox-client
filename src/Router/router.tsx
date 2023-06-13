@@ -14,6 +14,10 @@ import AllArtistInfo from "../Pages/Song/Artist/AllInfo/AllArtistInfo";
 import ReleaseBase from "../Pages/Song/Release/Release";
 import Search from "../Pages/Song/Search/Search";
 import VerifyEmail from "../Pages/Auth/Verify/VeriyEmail";
+import AdminBasePage from "../Pages/Admin/Base/AdminBasePage";
+import ArtistBasePage from "../Pages/Admin/Artist/Base/ArtistBasePage";
+import NewBasePage from "../Pages/Admin/Artist/New/Base/NewBasePage";
+import NewRelease from "../Pages/Admin/Artist/New/Release/NewRelease";
 
 const router = createBrowserRouter([
  {
@@ -57,6 +61,25 @@ const router = createBrowserRouter([
     ],
    },
    { path: "/podcast", element: <PodcastBasePage /> },
+  ],
+ },
+ {
+  path: "/admin",
+  element: <AdminBasePage />,
+  children: [
+   {
+    path: "/admin/artist",
+    element: <ArtistBasePage />,
+    children: [
+     {
+      path: "/admin/artist/new",
+      element: <NewBasePage />,
+      children: [
+       { path: "/admin/artist/new/release", element: <NewRelease /> },
+      ],
+     },
+    ],
+   },
   ],
  },
 ]);
