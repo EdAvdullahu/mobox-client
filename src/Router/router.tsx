@@ -18,6 +18,7 @@ import AdminBasePage from "../Pages/Admin/Base/AdminBasePage";
 import ArtistBasePage from "../Pages/Admin/Artist/Base/ArtistBasePage";
 import NewBasePage from "../Pages/Admin/Artist/New/Base/NewBasePage";
 import NewRelease from "../Pages/Admin/Artist/New/Release/NewRelease";
+import NewLyrics from "../Pages/Admin/Artist/New/Lyrics/NewLyrics";
 
 const router = createBrowserRouter([
  {
@@ -76,6 +77,7 @@ const router = createBrowserRouter([
       element: <NewBasePage />,
       children: [
        { path: "/admin/artist/new/release", element: <NewRelease /> },
+       { path: "/admin/artist/new/lyrics", element: <NewLyrics /> },
       ],
      },
     ],

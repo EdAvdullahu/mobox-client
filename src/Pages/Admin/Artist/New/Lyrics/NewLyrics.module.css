@@ -1,0 +1,60 @@
+@import "../../../../../Assets/Css/Variables.css";
+
+.main {
+ display: flex;
+ flex-direction: column;
+ width: calc(100% - 50px);
+ height: calc(100vh - 100px);
+ overflow: auto;
+ padding: 10px;
+ gap: 20px;
+}
+
+.input_wrapper {
+ width: 50%;
+ display: flex;
+ gap: 30px;
+ z-index: 100;
+}
+
+.outer {
+ font-family: 'Poppins';
+ color: var(--logo);
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+}
+
+.select {
+ border: none;
+ outline: none;
+ background-color: var(--black-trans40);
+ color: var(--logo);
+ padding: 5px;
+ border-radius: 10px;
+}
+
+.select option {
+ background-color: #000000d7;
+}
+
+.content {
+ height: 100%;
+ display: flex;
+ overflow: auto;
+ position: relative;
+ margin-top: -48px;
+}
+
+.noSelect {
+ position: absolute;
+ font-size: 3rem;
+ color: var(--black-trans40);
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+}
+
+.lyrics {
+ width: 100%;
+}

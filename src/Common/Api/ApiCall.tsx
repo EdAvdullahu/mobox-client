@@ -1,6 +1,6 @@
 import axios from "axios";
 import COOKIE from "../Services/cookie.service";
-const token = COOKIE.getCookie("token");
+const token = COOKIE.getCookie("userToken");
 export default {
  get(endpoint: any) {
   console.log("endpoint", token);

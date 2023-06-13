@@ -16,9 +16,8 @@ function ArtistNavigation() {
   {
    legend: "New",
    routes: [
-    { name: "Release", path: "/music" },
-    { name: "Song", path: "/music" },
-    { name: "Lyrics", path: "/music" },
+    { name: "Release", path: "/admin/artist/new/release" },
+    { name: "Lyrics", path: "/admin/artist/new/lyrics" },
    ],
   },
   {

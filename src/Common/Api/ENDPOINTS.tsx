@@ -48,6 +48,10 @@ interface Endpoints {
   };
   LYRICS: {
    GET: (id: string) => string;
+   POST: () => string;
+   SONG: {
+    POST: () => string;
+   };
   };
   GENRE: {
    GET: () => string;
@@ -100,7 +104,11 @@ const ENDPOINTS: Endpoints = {
    NEW: () => useApi(`Songs/SongApi/song`),
   },
   LYRICS: {
-   GET: (id) => useLyicsPath(`Lyrics/Song/lyrics/song/${id}`),
+   GET: (id) => useLyicsPath(`Song/lyrics/song/${id}`),
+   POST: () => useLyicsPath(`Song/lyrics`),
+   SONG: {
+    POST: () => useLyicsPath(`Song`),
+   },
   },
   GENRE: {
    GET: () => useApi("Songs/Genre"),
