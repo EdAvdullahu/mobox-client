@@ -88,6 +88,7 @@
 .close {
  margin-top: -55px;
  cursor: pointer;
+ width: min-content;
 }
 
 .input_wrapper {

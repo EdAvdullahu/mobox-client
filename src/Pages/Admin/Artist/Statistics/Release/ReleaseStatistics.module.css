@@ -90,6 +90,10 @@
  cursor: pointer;
 }
 
+.close {
+ width: min-content;
+}
+
 .input_wrapper {
  font-family: "Kodchasan";
  color: var(--gray-font);

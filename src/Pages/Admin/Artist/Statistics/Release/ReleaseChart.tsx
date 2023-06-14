@@ -147,8 +147,10 @@ const ReleaseChart: React.FC<Props> = ({ songId, handleClose }) => {
       />
      </div>
     </div>
-    <div onClick={handleClose} className={classes.close}>
-     <Cancel />
+    <div className={classes.close}>
+     <div onClick={handleClose}>
+      <Cancel />
+     </div>
     </div>
     {chartData && !isLoading && (
      <ResponsiveContainer width="100%" height="100%">
