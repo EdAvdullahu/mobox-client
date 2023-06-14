@@ -19,6 +19,10 @@ import ArtistBasePage from "../Pages/Admin/Artist/Base/ArtistBasePage";
 import NewBasePage from "../Pages/Admin/Artist/New/Base/NewBasePage";
 import NewRelease from "../Pages/Admin/Artist/New/Release/NewRelease";
 import NewLyrics from "../Pages/Admin/Artist/New/Lyrics/NewLyrics";
+import StatisticsBase from "../Pages/Admin/Artist/Statistics/Base/StatisticsBase";
+import ArtistStatistics from "../Pages/Admin/Artist/Statistics/Artist/ArtistStatistics";
+import SongStatistics from "../Pages/Admin/Artist/Statistics/Song/SongsStatistics";
+import ReleaseStatistics from "../Pages/Admin/Artist/Statistics/Release/ReleaseStatistics";
 
 const router = createBrowserRouter([
  {
@@ -78,6 +82,21 @@ const router = createBrowserRouter([
       children: [
        { path: "/admin/artist/new/release", element: <NewRelease /> },
        { path: "/admin/artist/new/lyrics", element: <NewLyrics /> },
+      ],
+     },
+     {
+      path: "/admin/artist/statistics",
+      element: <StatisticsBase />,
+      children: [
+       {
+        path: "/admin/artist/statistics/artist",
+        element: <ArtistStatistics />,
+       },
+       { path: "/admin/artist/statistics/songs", element: <SongStatistics /> },
+       {
+        path: "/admin/artist/statistics/releases",
+        element: <ReleaseStatistics />,
+       },
       ],
      },
     ],

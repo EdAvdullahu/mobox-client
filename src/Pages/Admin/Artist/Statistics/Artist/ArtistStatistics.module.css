@@ -1,0 +1,68 @@
+.main {
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+.artit_info {
+ display: flex;
+ gap: 20px;
+ width: calc(100vw - 400px);
+ overflow: auto;
+}
+
+.card {
+ width: 200px;
+ height: 100px;
+ display: flex;
+ flex-direction: column;
+ font-family: 'Kodchasan';
+}
+
+.card_title {
+ font-size: 1rem;
+ color: var(--gray-font);
+}
+
+.card_number {
+ font-size: 3rem;
+ margin: 0 auto;
+ color: var(--gray-font);
+}
+
+.top_listeners {
+ color: var(--gray-font);
+ font-family: 'Kodchasan';
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+}
+
+.top_listeners_title {
+ font-size: 1.3rem;
+}
+
+.table table {
+ width: 80%;
+ border-collapse: collapse;
+}
+
+.table th {
+ border-bottom: solid 1px var(--gray-font);
+ padding-bottom: 5px;
+}
+
+.th {
+ display: flex;
+ flex-direction: row;
+ width: max-content;
+ gap: 10px;
+}
+
+.spin svg {
+ transform: rotateZ(180deg);
+}
+
+.icon svg {
+ transition: all ease-in-out 0.3s;
+}

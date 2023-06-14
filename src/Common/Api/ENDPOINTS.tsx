@@ -32,6 +32,14 @@ interface Endpoints {
  ARTIST: {
   GET: (id: string) => string;
   FEATURE: (name: string) => string;
+  STATISTICS: {
+   MAIN: (id: number) => string;
+   TOP_LISTENERS: (id: number) => string;
+   ALL_SONGS: (id: number) => string;
+   SONG_BY_DATES: (id: number, startDate: string, endDate: string) => string;
+   ALL_RELEASES: (id: number) => string;
+   RELEASE_BY_DATES: (id: number, startDate: string, endDate: string) => string;
+  };
  };
  FILTER: {
   GENRE: () => string;
@@ -89,6 +97,16 @@ const ENDPOINTS: Endpoints = {
  ARTIST: {
   GET: (id) => useApi(`Songs/SongApi/artist/${id}`),
   FEATURE: (name) => useApi(`Songs/Artist/name/${name}`),
+  STATISTICS: {
+   MAIN: (id) => useApi(`Songs/Statistics/artist/main/${id}`),
+   TOP_LISTENERS: (id) => useApi(`Songs/Statistics/artist/top-listeners/${id}`),
+   ALL_SONGS: (id) => useApi(`Songs/Statistics/artist/all-songs/${id}`),
+   SONG_BY_DATES: (id, startDate, endDate) =>
+    useApi(`Songs/Statistics/song/by-dates/${id}/${startDate}/${endDate}`),
+   ALL_RELEASES: (id) => useApi(`Songs/Statistics/artist/all-releases/${id}`),
+   RELEASE_BY_DATES: (id, startDate, endDate) =>
+    useApi(`Songs/Statistics/release/by-dates/${id}/${startDate}/${endDate}`),
+  },
  },
  FILTER: {
   GENRE: () => useApi("Songs/SongApi/genre/filter"),

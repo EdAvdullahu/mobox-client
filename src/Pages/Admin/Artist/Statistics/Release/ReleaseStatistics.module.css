@@ -1,0 +1,109 @@
+.main {
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+.card {
+ width: 200px;
+ height: 100px;
+ display: flex;
+ flex-direction: column;
+ font-family: 'Kodchasan';
+}
+
+.top_listeners {
+ color: var(--gray-font);
+ font-family: 'Kodchasan';
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+}
+
+.top_listeners_title {
+ font-size: 1.3rem;
+}
+
+.table table {
+ width: calc(100vw - 400px);
+ border-collapse: collapse;
+}
+
+.table th {
+ border-bottom: solid 1px var(--gray-font);
+ padding-bottom: 5px;
+ padding: 5px 10px 5px 5px;
+}
+
+.table td {
+ padding: 5px 10px 5px 5px;
+}
+
+.th {
+ display: flex;
+ flex-direction: row;
+ width: max-content;
+ gap: 10px;
+}
+
+.spin svg {
+ transform: rotateZ(180deg);
+}
+
+.icon svg {
+ transition: all ease-in-out 0.3s;
+}
+
+.chart {
+ position: absolute;
+ height: 100%;
+ top: 0;
+ left: 0;
+ background-color: var(--card);
+ width: 100%;
+ display: flex;
+ justify-content: center;
+}
+
+.chart_inner {
+ margin: auto;
+ width: 80%;
+ height: 60%;
+ padding: 20px 10px 30px 10px;
+ background-color: var(--black-trans40);
+ border-radius: 10px;
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+.inputs {
+ display: flex;
+ justify-self: flex-end;
+ justify-content: flex-end;
+ gap: 40px;
+ padding-right: 30px;
+}
+
+.close {
+ margin-top: -55px;
+ cursor: pointer;
+}
+
+.input_wrapper {
+ font-family: "Kodchasan";
+ color: var(--gray-font);
+ display: flex;
+ gap: 20px;
+ align-items: center;
+}
+
+.input_wrapper input {
+ background-color: var(--black-trans40);
+ color: var(--gray-font);
+ outline: none;
+ border: none;
+ border-radius: 10px;
+ fill: var(--gray-font);
+ padding: 5px;
+}

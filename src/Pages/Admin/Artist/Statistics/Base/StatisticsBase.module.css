@@ -1,0 +1,21 @@
+.main {
+ padding: 20px;
+ height: calc(100vh - 90px);
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+.title {
+ color: var(--gray-font);
+ font-size: 2rem;
+ font-family: 'Poppins';
+ text-transform: capitalize;
+ height: 50px;
+}
+
+.content {
+ padding: 20px;
+ display: flex;
+ height: calc(100% - 90px);
+}

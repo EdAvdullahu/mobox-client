@@ -7,10 +7,9 @@ function ArtistNavigation() {
   {
    legend: "statistics",
    routes: [
-    { name: "Songs", path: "/music" },
-    { name: "Releases", path: "/music" },
-    { name: "Career", path: "/music" },
-    { name: "Listeners", path: "/music" },
+    { name: "Songs", path: "/admin/artist/statistics/songs" },
+    { name: "Releases", path: "/admin/artist/statistics/releases" },
+    { name: "Artist", path: "/admin/artist/statistics/artist" },
    ],
   },
   {
