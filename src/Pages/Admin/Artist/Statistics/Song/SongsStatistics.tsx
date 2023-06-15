@@ -27,9 +27,8 @@ const SongStatistics = () => {
  useEffect(() => {
   const fetchData = async () => {
    try {
-    const res = await ApiCall.getNoAuth(
-     ENDPOINTS.ARTIST.STATISTICS.ALL_SONGS(artistId),
-     null
+    const res = await ApiCall.get(
+     ENDPOINTS.ARTIST.STATISTICS.ALL_SONGS(artistId)
     );
     if (res.data.isSuccess) {
      setArtistStats(res.data.result.songs);

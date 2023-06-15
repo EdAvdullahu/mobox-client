@@ -7,3 +7,7 @@ export interface IPlaylist {
  description: string;
  songs: ISong[];
 }
+export interface permissions {
+ canDelete: boolean;
+ canAdd: boolean;
+}

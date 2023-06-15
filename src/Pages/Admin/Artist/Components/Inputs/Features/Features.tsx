@@ -29,7 +29,7 @@ const Features: React.FC<FeatureProps> = ({ index, handleChange }) => {
  const [dFeatures, setDFeatures] = useState<displayFeature[]>([]);
  const debouncer = useDebounce(search, 500);
  useEffect(() => {
-  ApiCall.getNoAuth(ENDPOINTS.ARTIST.FEATURE(debouncer), null).then((res) => {
+  ApiCall.get(ENDPOINTS.ARTIST.FEATURE(debouncer)).then((res) => {
    console.log(res.data);
    setArtists(res.data.result);
   });

@@ -4,6 +4,7 @@ export interface ISong {
  releaseDate: string;
  length: string;
  path: string;
+ songPlaylistId: number | undefined;
  imageUrl: string;
  release: {
   releaseId: number;

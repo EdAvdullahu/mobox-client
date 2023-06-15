@@ -34,9 +34,8 @@ const PlaylistCollaborators: React.FC<CollabProps> = ({
   const getCollabs = async () => {
    if (playlist?.playlistId) {
     try {
-     const res = await ApiCall.getNoAuth(
-      ENDPOINTS.USER.SONGS.PLAYLISTS.GET_COLLABS(playlist.playlistId),
-      null
+     const res = await ApiCall.get(
+      ENDPOINTS.USER.SONGS.PLAYLISTS.GET_COLLABS(playlist.playlistId)
      );
      if (res.data.isSuccess) {
       console.log("RESULT", res.data.result);

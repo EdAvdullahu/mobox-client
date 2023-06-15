@@ -1,17 +1,25 @@
 import axios from "axios";
 import COOKIE from "../Services/cookie.service";
-const token = COOKIE.getCookie("userToken");
+
 export default {
  get(endpoint: any) {
+  const token = COOKIE.getCookie("userToken");
   console.log("endpoint", token);
   return axios.get(endpoint, { headers: { Authorization: `bearer ${token}` } });
  },
+ login(endpoint: any, UserToken: string) {
+  return axios.get(endpoint, {
+   headers: { Authorization: `bearer ${UserToken}` },
+  });
+ },
  post(endpoint: any, params: any) {
+  const token = COOKIE.getCookie("userToken");
   return axios.post(endpoint, params, {
    headers: { Authorization: `bearer ${token}` },
   });
  },
  put(endpoint: any, params: any) {
+  const token = COOKIE.getCookie("userToken");
   return axios.put(endpoint, params, {
    headers: { Authorization: `bearer ${token}` },
   });
@@ -20,21 +28,27 @@ export default {
   console.log("endpoint", endpoint);
   return axios.post(endpoint, params);
  },
- getNoAuth(endpoint: any, params: any | null) {
+ getObj(endpoint: any, params: any | null) {
+  const token = COOKIE.getCookie("userToken");
   if (params) {
-   return axios.get(endpoint, { params });
+   return axios.get(endpoint, {
+    params,
+    headers: { Authorization: `bearer ${token}` },
+   });
   }
   return axios.get(endpoint);
  },
- postNoAuth(endpoint: any, params: any) {
-  console.log("PARAMS", params);
-  return axios.post(endpoint, params);
- },
- deleteNoAuth(endpoint: any, params: any) {
+ delete(endpoint: any, params: any) {
+  const token = COOKIE.getCookie("userToken");
   if (params) {
-   return axios.delete(endpoint, params);
+   return axios.delete(endpoint, {
+    params,
+    headers: { Authorization: `bearer ${token}` },
+   });
   } else {
-   return axios.delete(endpoint);
+   return axios.delete(endpoint, {
+    headers: { Authorization: `bearer ${token}` },
+   });
   }
  },
  putNoAuth(endpoint: any, params: any) {

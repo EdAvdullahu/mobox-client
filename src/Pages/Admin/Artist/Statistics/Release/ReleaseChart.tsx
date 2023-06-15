@@ -63,13 +63,12 @@ const ReleaseChart: React.FC<Props> = ({ songId, handleClose }) => {
    try {
     if (songId && startDate && endDate) {
      setIL(true);
-     const res = await ApiCall.getNoAuth(
+     const res = await ApiCall.get(
       ENDPOINTS.ARTIST.STATISTICS.RELEASE_BY_DATES(
        songId,
        dayjs(startDate).format("YYYY-MM-DD"),
        dayjs(endDate).format("YYYY-MM-DD") + "T23:59:59.00"
-      ),
-      null
+      )
      );
      if (res.data.isSuccess) {
       console.log("RES>DATA", res.data.result);

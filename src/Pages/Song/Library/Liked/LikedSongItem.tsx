@@ -57,16 +57,15 @@ function LikedSongItem({
  };
  const removeFromLikes = () => {
   try {
-   ApiCall.deleteNoAuth(
-    ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song?.likedId),
-    null
-   ).then((res) => {
-    if (res.data.result === true) {
-     dispatch(UserActions.removeLikedSongs(song?.likedId));
-    } else {
-     console.log("SMETHING WENT WRONG");
+   ApiCall.delete(ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song?.likedId), null).then(
+    (res) => {
+     if (res.data.result === true) {
+      dispatch(UserActions.removeLikedSongs(song?.likedId));
+     } else {
+      console.log("SMETHING WENT WRONG");
+     }
     }
-   });
+   );
   } catch (error) {
    console.log(error);
   }

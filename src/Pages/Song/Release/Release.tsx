@@ -31,10 +31,7 @@ function ReleaseBase() {
     if (release) {
      dispatch(ReleaseActions.SetRelease({ release }));
     } else {
-     const res = await ApiCall.getNoAuth(
-      ENDPOINTS.SONGS.RELEASE.GET(+releaseId),
-      null
-     );
+     const res = await ApiCall.get(ENDPOINTS.SONGS.RELEASE.GET(+releaseId));
 
      if (res.data.isSuccess) {
       const disRelease = {

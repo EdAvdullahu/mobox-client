@@ -28,7 +28,7 @@ function ReleaseItemAction(props: prop) {
    playlistId: id + "",
   };
   try {
-   const res = await ApiCall.postNoAuth(
+   const res = await ApiCall.post(
     ENDPOINTS.USER.SONGS.PLAYLISTS.ADD_SONG(),
     newPlaylist
    );

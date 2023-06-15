@@ -57,7 +57,7 @@ function App() {
   COOKIE.setCookie("desiredLocation", router.state.location.pathname);
  }
  const login = async (username: string) => {
-  const res = await ApiCall.getNoAuth(ENDPOINTS.USER.WHO_AM_I(username), null);
+  const res = await ApiCall.get(ENDPOINTS.USER.WHO_AM_I(username));
 
   const user: IUser = {
    email: "test",

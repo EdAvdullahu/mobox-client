@@ -13,14 +13,24 @@ import HeartFill from "../../../../Assets/Svg/HeartFill";
 import HeartNoFill from "../../../../Assets/Svg/HeartNoFill";
 import { NavLink } from "react-router-dom";
 import { formatLikedSongs } from "../../../../Common/Services/comon.services";
+import Cancel from "../../../../Assets/Svg/Cancel";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Props {
  song: ISong;
  order: number;
  playlist: IPlaylist;
+ canDelete: boolean | undefined;
+ handleRemove: () => void;
 }
 
-function PlayListListItem({ song, order, playlist }: Props) {
+function PlayListListItem({
+ song,
+ order,
+ playlist,
+ canDelete,
+ handleRemove,
+}: Props) {
  // Format duration as hh:mm:ss
  function formatDuration(duration: string): string {
   const [hours, minutes, seconds] = duration.split(":").map(Number);
@@ -66,24 +76,23 @@ function PlayListListItem({ song, order, playlist }: Props) {
 
  function likeDislikeSong() {
   if (song.isLiked) {
-   ApiCall.deleteNoAuth(
-    ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song.likedId),
-    null
-   ).then((res) => {
-    if (res.data.result) {
-     dispatch(UserActions.removeLikedSongs(song.likedId));
+   ApiCall.delete(ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song.likedId), null).then(
+    (res) => {
+     if (res.data.result) {
+      dispatch(UserActions.removeLikedSongs(song.likedId));
+     }
     }
-   });
+   );
   } else {
    const likeS = {
     userId: userId,
     songId: song.songId,
    };
-   ApiCall.postNoAuth(ENDPOINTS.USER.SONGS.LIKES.LIKE(), likeS).then((res) => {
+   ApiCall.post(ENDPOINTS.USER.SONGS.LIKES.LIKE(), likeS).then((res) => {
     console.log(res.data);
     if (res.data.result) {
      if (userId) {
-      ApiCall.getNoAuth(ENDPOINTS.USER.LIKES(+userId), null).then((res) => {
+      ApiCall.get(ENDPOINTS.USER.LIKES(+userId)).then((res) => {
        if (res.data.isSuccess && res.data.result) {
         const Playlist: IPlaylist = {
          playlistId: "",
@@ -103,6 +112,46 @@ function PlayListListItem({ song, order, playlist }: Props) {
   }
  }
 
+ const removeFromPlaylist = async () => {
+  if (song.songPlaylistId) {
+   try {
+    const res = await ApiCall.delete(
+     ENDPOINTS.USER.SONGS.PLAYLISTS.DELETE_SONG(song.songPlaylistId),
+     null
+    );
+    if (res.data.result) {
+     handleRemove();
+     toast.success("Song removed from playlist", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+     });
+    } else {
+     logError();
+    }
+   } catch (error) {
+    logError();
+   }
+  }
+ };
+ const logError = () => {
+  toast.error("Something went wrong", {
+   position: "top-center",
+   autoClose: 2000,
+   hideProgressBar: true,
+   closeOnClick: true,
+   pauseOnHover: true,
+   draggable: true,
+   progress: undefined,
+   theme: "light",
+  });
+ };
+
  return (
   <div
    onMouseLeave={() => {
@@ -112,6 +161,7 @@ function PlayListListItem({ song, order, playlist }: Props) {
     handleMouseOver();
    }}
   >
+   <ToastContainer />
    <div className={classes.main}>
     <div className={classes.order}>{order + 1}</div>
     <div className={classes.song}>
@@ -149,9 +199,14 @@ function PlayListListItem({ song, order, playlist }: Props) {
     <div>
      <p>{formatDuration(song.length)}</p>
     </div>
-    <div onClick={likeDislikeSong}>
+    <div className={classes.icon} onClick={likeDislikeSong}>
      {song.isLiked ? <HeartFill /> : <HeartNoFill />}
     </div>
+    {canDelete && (
+     <div onClick={removeFromPlaylist} className={classes.icon}>
+      <Cancel />
+     </div>
+    )}
    </div>
   </div>
  );

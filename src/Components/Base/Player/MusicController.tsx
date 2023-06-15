@@ -11,6 +11,10 @@ import RepeatButtonActive from "../../../Assets/Svg/RepeatButton";
 import RepeatButtonUnactive from "../../../Assets/Svg/RepeatButtonUnactive";
 import ShuffleButtonActive from "../../../Assets/Svg/ShuffleButtonActive";
 import ShuffleButton from "../../../Assets/Svg/ShuffleButton";
+import useDebounce from "../../../Hooks/useDebounce";
+import ApiCall from "../../../Common/Api/ApiCall";
+import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
+import COOKIE from "../../../Common/Services/cookie.service";
 
 type Props = {
  src: string;
@@ -31,6 +35,7 @@ const MusicController: React.FC<Props> = ({ src, audioRef }) => {
  const [currentTime, setCurrentTime] = useState(0);
  const [duration, setDuration] = useState(0);
  const dispatch = useDispatch();
+ const userId = COOKIE.getCookie("userId");
 
  // play/pause song
  const togglePlay = () => {
@@ -77,6 +82,26 @@ const MusicController: React.FC<Props> = ({ src, audioRef }) => {
    }
   }, 200);
  }, [isPlaying, currentSong]);
+
+ // make API call after 20sec that a song has been playing
+ const debouncer = useDebounce(currentSong, 20000);
+ useEffect(() => {
+  const sendStream = async () => {
+   try {
+    const res = await ApiCall.post(ENDPOINTS.USER.SONGS.STREAM(), {
+     userId: userId,
+     songId: currentSong?.songId,
+    });
+    console.log("STREAM RESULT", res.data.result);
+   } catch (error) {
+    console.error(error);
+   }
+  };
+
+  if (debouncer) {
+   sendStream();
+  }
+ }, [debouncer]);
 
  // time update on progressbar
  const handleTimeUpdate = () => {

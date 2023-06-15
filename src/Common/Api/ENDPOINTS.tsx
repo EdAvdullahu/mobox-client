@@ -22,11 +22,14 @@ interface Endpoints {
     NEW: () => string;
     USER: (id: number | string) => string;
     GET_COLLABS: (id: string) => string;
+    GET_PERMISSIONS: (id: number, playlist: string) => string;
+    DELETE_SONG: (id: number) => string;
    };
    LIKES: {
     LIKE: () => string;
     DISLIKE: (id: number) => string;
    };
+   STREAM: () => string;
   };
  };
  ARTIST: {
@@ -87,11 +90,15 @@ const ENDPOINTS: Endpoints = {
     NEW: () => useApi("Songs/Playlist/playlist"),
     USER: (id) => useApi(`Songs/Playlist/user/${id}`),
     GET_COLLABS: (id) => useApi(`Songs/Playlist/collab/${id}`),
+    GET_PERMISSIONS: (id, playlist) =>
+     useApi(`Songs/Playlist/playlist/authorize/${id}/${playlist}`),
+    DELETE_SONG: (id) => useApi(`Songs/Playlist/song/${id}`),
    },
    LIKES: {
     LIKE: () => useApi("Songs/Song/like"),
     DISLIKE: (id) => useApi(`Songs/Song/like/${id}`),
    },
+   STREAM: () => useApi(`Songs/SongApi/stream`),
   },
  },
  ARTIST: {

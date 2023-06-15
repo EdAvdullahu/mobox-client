@@ -27,9 +27,8 @@ const Player: React.FC<Props> = ({ audioRef }) => {
   const fetchLyrics = async () => {
    if (currentSong?.songId) {
     try {
-     const response = await ApiCall.getNoAuth(
-      ENDPOINTS.SONGS.LYRICS.GET(currentSong?.songId + ""),
-      null
+     const response = await ApiCall.get(
+      ENDPOINTS.SONGS.LYRICS.GET(currentSong?.songId + "")
      );
      const lyrics: Lyric = response.data.result;
      if (!lyrics) {

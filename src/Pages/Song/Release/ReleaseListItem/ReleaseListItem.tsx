@@ -76,26 +76,25 @@ function ReleaseListItem({ song, order }: Props) {
 
  function likeDislikeSong() {
   if (song.isLiked) {
-   ApiCall.deleteNoAuth(
-    ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song.likedId),
-    null
-   ).then((res) => {
-    if (res.data.result) {
-     dispatch(UserActions.removeLikedSongs(song.likedId));
-     song.isLiked = false;
-     song.likedId = 0;
+   ApiCall.delete(ENDPOINTS.USER.SONGS.LIKES.DISLIKE(song.likedId), null).then(
+    (res) => {
+     if (res.data.result) {
+      dispatch(UserActions.removeLikedSongs(song.likedId));
+      song.isLiked = false;
+      song.likedId = 0;
+     }
     }
-   });
+   );
   } else {
    const likeS = {
     userId: userId,
     songId: song.songId,
    };
-   ApiCall.postNoAuth(ENDPOINTS.USER.SONGS.LIKES.LIKE(), likeS).then((res) => {
+   ApiCall.post(ENDPOINTS.USER.SONGS.LIKES.LIKE(), likeS).then((res) => {
     console.log(res.data);
     if (res.data.result) {
      if (userId) {
-      ApiCall.getNoAuth(ENDPOINTS.USER.LIKES(+userId), null).then((res) => {
+      ApiCall.get(ENDPOINTS.USER.LIKES(+userId)).then((res) => {
        if (res.data.isSuccess && res.data.result) {
         const Playlist: IPlaylist = {
          playlistId: "",

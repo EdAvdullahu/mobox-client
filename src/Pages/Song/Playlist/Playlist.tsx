@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ApiCall from "../../../Common/Api/ApiCall";
 import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
 import PlaylistList from "./PlaylistList/PlaylistList";
-import { IPlaylist } from "../types/IPlaylist";
+import { IPlaylist, permissions } from "../types/IPlaylist";
 import classes from "./Playlist.module.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Store/UserStore/user_state";
@@ -12,12 +12,15 @@ import Collabs from "../../../Assets/Svg/Collabs";
 import Portal from "../../../Components/Portal/Portal";
 import PlaylistCollaborators from "./Collaborators/PlaylistCollaborators";
 import Share from "../../../Assets/Svg/Share";
-import { toast } from "../../../Components/Toast/ToastManager";
+import { toast } from "react-toastify";
+import COOKIE from "../../../Common/Services/cookie.service";
 
 function Playlist() {
  const { playlistId } = useParams<{ playlistId: string }>();
  const [playlist, setPlaylist] = useState<IPlaylist | undefined>(undefined);
+ const userId = COOKIE.getCookie("userId");
  const likedSongs = useSelector((state: RootState) => state.user.likedSongs);
+ const [perm, setPerm] = useState<permissions | undefined>(undefined);
 
  // add like data if song is in liked playlist
  const addLikeData = (playlist: IPlaylist): IPlaylist => {
@@ -47,10 +50,21 @@ function Playlist() {
   const fetchPlaylist = async () => {
    try {
     if (playlistId) {
-     const res = await ApiCall.getNoAuth(
-      ENDPOINTS.USER.SONGS.PLAYLISTS.GET(playlistId),
-      null
+     const res = await ApiCall.get(
+      ENDPOINTS.USER.SONGS.PLAYLISTS.GET(playlistId)
      );
+     if (res.data.isSuccess && userId) {
+      const permsissions = await ApiCall.get(
+       ENDPOINTS.USER.SONGS.PLAYLISTS.GET_PERMISSIONS(+userId, playlistId)
+      );
+      if (permsissions.data.isSuccess) {
+       const permi: permissions = {
+        canAdd: permsissions.data.result.canAdd,
+        canDelete: permsissions.data.result.canDelete,
+       };
+       setPerm(permi);
+      }
+     }
      const playlistWithLikes = addLikeData(res.data.result);
      setPlaylist(playlistWithLikes);
     }
@@ -74,17 +88,32 @@ function Playlist() {
   navigator.clipboard
    .writeText(currentURL)
    .then(() => {
-    toast.show({
-     id: "",
-     title: "Success",
-     content: "Link copied to clipboard",
-     duration: 3000,
+    toast.success("Link copied to clipboard", {
+     position: "top-center",
+     autoClose: 2000,
+     hideProgressBar: true,
+     closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "dark",
     });
     // toast.destroy(id);
    })
    .catch((error) => {
     console.error("Failed to copy URL to clipboard:", error);
    });
+ };
+
+ const handleRemoveFromPlaylist = (songP: number) => {
+  console.log("CALLED AT THE TOP", songP);
+  const updatedPlaylist = playlist?.songs.filter((item: ISong) => {
+   return item.songPlaylistId !== songP;
+  });
+  if (updatedPlaylist) {
+   if (playlist?.playlistId)
+    setPlaylist({ ...playlist, songs: updatedPlaylist });
+  }
  };
 
  return (
@@ -121,7 +150,12 @@ function Playlist() {
    </div>
    <div>
     {playlist?.songs && (
-     <PlaylistList songs={playlist.songs} playlist={playlist} />
+     <PlaylistList
+      songs={playlist.songs}
+      playlist={playlist}
+      permissions={perm}
+      handleRemove={(e) => handleRemoveFromPlaylist(e)}
+     />
     )}
    </div>
   </div>

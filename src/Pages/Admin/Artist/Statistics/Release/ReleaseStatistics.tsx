@@ -26,9 +26,8 @@ const ReleaseStatistics = () => {
  useEffect(() => {
   const fetchData = async () => {
    try {
-    const res = await ApiCall.getNoAuth(
-     ENDPOINTS.ARTIST.STATISTICS.ALL_RELEASES(artistId),
-     null
+    const res = await ApiCall.get(
+     ENDPOINTS.ARTIST.STATISTICS.ALL_RELEASES(artistId)
     );
     if (res.data.isSuccess) {
      setArtistStats(res.data.result.releases);

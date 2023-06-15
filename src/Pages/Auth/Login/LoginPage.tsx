@@ -54,24 +54,24 @@ function LoginPage() {
  const [password, setPassword] = useState("");
  const dispatch = useDispatch();
  const username = COOKIE.getCookie("username");
+ const UT = COOKIE.getCookie("userToken");
  const user = {
   userName: uName,
   password: password,
  };
  const url = COOKIE.getCookie("desiredLocation")?.replace("%2F", "/");
  const Login = async () => {
-  const res = await ApiCall.postNoAuth(ENDPOINTS.USER.LOGIN(), user);
+  const res = await ApiCall.post(ENDPOINTS.USER.LOGIN(), user);
   if (res.data.isSuccess) {
    COOKIE.setCookie("userToken", res.data.result.token);
    COOKIE.setCookie("refreshToken", res.data.result.refreshToken);
    COOKIE.setCookie("role", res.data.result.role);
    COOKIE.setCookie("uid", res.data.result.id);
-   login();
+   login(res.data.result.token);
   }
  };
- const login = async () => {
-  const res = await ApiCall.getNoAuth(ENDPOINTS.USER.WHO_AM_I(uName), null);
-  console.log("WHO", res.data);
+ const login = async (uToken: string) => {
+  const res = await ApiCall.login(ENDPOINTS.USER.WHO_AM_I(uName), uToken);
   const user: IUser = {
    email: "test",
    name: res.data.result.userName,
@@ -94,7 +94,14 @@ function LoginPage() {
   COOKIE.setCookie("username", user.name);
   COOKIE.setCookie("userId", user.id);
   if (url?.includes("login") || url?.includes("sign-in")) {
-   router.navigate("/music");
+   const Irole = COOKIE.getCookie("role");
+   if (Irole == "Artist") {
+    router.navigate("/admin/artist/statistics/artist");
+   } else if (Irole == "Admin") {
+    router.navigate("/music");
+   } else {
+    router.navigate("/music");
+   }
   } else if (url) {
    router.navigate(url);
   }
@@ -105,9 +112,9 @@ function LoginPage() {
   Login();
  };
 
- if (username) {
+ if (username && UT) {
   setUName(username);
-  login();
+  login(UT);
  }
 
  return (

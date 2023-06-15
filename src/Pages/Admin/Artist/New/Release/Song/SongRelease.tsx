@@ -35,7 +35,7 @@ const SongRelease: React.FC<SongInputProps> = ({ index, handleChange }) => {
  const gnereState = useSelector((state: SongState) => state.song.genres);
  useEffect(() => {
   if (!gnereState) {
-   ApiCall.getNoAuth(ENDPOINTS.SONGS.GENRE.GET(), null).then((res) => {
+   ApiCall.get(ENDPOINTS.SONGS.GENRE.GET()).then((res) => {
     if (res.data.result) {
      dispatch(SongActions.SetGenres({ genres: res.data.result }));
     }

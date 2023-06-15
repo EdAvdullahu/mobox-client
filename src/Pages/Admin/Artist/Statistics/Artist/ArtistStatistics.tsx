@@ -41,13 +41,11 @@ const ArtistStatistics = () => {
  useEffect(() => {
   const fetchData = async () => {
    try {
-    const mainStatsPromise = ApiCall.getNoAuth(
-     ENDPOINTS.ARTIST.STATISTICS.MAIN(artistId),
-     null
+    const mainStatsPromise = ApiCall.get(
+     ENDPOINTS.ARTIST.STATISTICS.MAIN(artistId)
     );
-    const topListenersStatsPromise = ApiCall.getNoAuth(
-     ENDPOINTS.ARTIST.STATISTICS.TOP_LISTENERS(artistId),
-     null
+    const topListenersStatsPromise = ApiCall.get(
+     ENDPOINTS.ARTIST.STATISTICS.TOP_LISTENERS(artistId)
     );
 
     const [mainStatsResponse, topListenersStatsResponse] = await Promise.all([
@@ -64,33 +62,33 @@ const ArtistStatistics = () => {
 
      setArtistStats({ mainStats, topListenersStats });
     } else {
+     // Handle API error if needed
     }
    } catch (error) {
     console.error(error);
    }
-   console.log("RES", artistStats);
   };
 
   fetchData();
  }, [artistId]);
+
  useEffect(() => {
-  if (!topTen && artistStats?.topListenersStats.topListeners) {
-   setTopTen(artistStats?.topListenersStats.topListeners);
-  } else {
-   const temp = topTen?.sort((a: listener, b: listener) => {
-    if (a[sortBy as keyof listener] < b[sortBy as keyof listener]) {
-     return order === "asc" ? -1 : 1; // a should be sorted before b
+  if (artistStats?.topListenersStats.topListeners) {
+   const temp = [...artistStats.topListenersStats.topListeners].sort(
+    (a: listener, b: listener) => {
+     if (a[sortBy as keyof listener] < b[sortBy as keyof listener]) {
+      return order === "asc" ? -1 : 1; // a should be sorted before b
+     }
+     if (a[sortBy as keyof listener] > b[sortBy as keyof listener]) {
+      return order === "asc" ? 1 : -1; // a should be sorted after b
+     }
+     return 0;
     }
-    if (a[sortBy as keyof listener] > b[sortBy as keyof listener]) {
-     return order === "asc" ? 1 : -1; // a should be sorted after b
-    }
-    return 0;
-   });
-   if (temp) {
-    setTopTen([...temp]);
-   }
+   );
+
+   setTopTen(temp);
   }
- }, [order, sortBy]);
+ }, [artistStats, order, sortBy]);
 
  const handleSoort = (sort: string) => {
   if (sort === sortBy) {

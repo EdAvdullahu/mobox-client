@@ -80,7 +80,7 @@ function NewRelease() {
     formData.append("ArtistId", artistId);
     formData.append("Image", image);
     formData.append("NumnerOfSongs", nos + "");
-    const releaseResponse = await ApiCall.postNoAuth(
+    const releaseResponse = await ApiCall.post(
      ENDPOINTS.SONGS.RELEASE.NEW(),
      formData
     );
@@ -115,10 +115,7 @@ function NewRelease() {
         newSongData.append("Audio", song.Audio);
         newSongData.append("features", JSON.stringify(songFeature));
         newSongData.append("genres", JSON.stringify(song.genres));
-        const res = await ApiCall.postNoAuth(
-         ENDPOINTS.SONGS.SONG.NEW(),
-         newSongData
-        );
+        const res = await ApiCall.post(ENDPOINTS.SONGS.SONG.NEW(), newSongData);
         if (trackers[tempIndex] && trackers[tempIndex].status) {
          trackers[tempIndex].status = res.data.isSuccess ? "Created" : "Failed";
          setTrackers([...trackers]);

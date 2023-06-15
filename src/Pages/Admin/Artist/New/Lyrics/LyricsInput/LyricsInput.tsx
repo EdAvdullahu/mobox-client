@@ -71,7 +71,7 @@ const LyricsInput: React.FC<props> = ({ songId, songName }) => {
      songApiId: songId,
      songName: songName,
     };
-    const songRes = await ApiCall.postNoAuth(
+    const songRes = await ApiCall.post(
      ENDPOINTS.SONGS.LYRICS.SONG.POST(),
      newSong
     );
@@ -80,7 +80,7 @@ const LyricsInput: React.FC<props> = ({ songId, songName }) => {
       songId: songRes.data.result.songId,
       verses: verses,
      };
-     const lyricsRes = await ApiCall.postNoAuth(
+     const lyricsRes = await ApiCall.post(
       ENDPOINTS.SONGS.LYRICS.POST(),
       lyrics
      );

@@ -3,20 +3,31 @@ import { ISong } from "../../types/ISong";
 import classes from "./PlaylistList.module.css";
 import ScrollElement from "../../../../Components/ScrollElement";
 import { CSSProperties } from "react";
-import { IPlaylist } from "../../types/IPlaylist";
+import { IPlaylist, permissions } from "../../types/IPlaylist";
 
 function PlaylistList({
  songs,
  playlist,
+ permissions,
+ handleRemove,
 }: {
  songs: ISong[];
  playlist: IPlaylist;
+ permissions: permissions | undefined;
+ handleRemove: (playS: number) => void;
 }) {
  const innerContent: CSSProperties = {
   height: "calc(100% - 300px)",
   display: "flex",
   flexDirection: "column",
   overflow: "auto",
+ };
+
+ const handleLocalRemove = (id: number | undefined) => {
+  console.log("HANDLE LOCALE CALLED", id);
+  if (id) {
+   handleRemove(id);
+  }
  };
  return (
   <div className={classes.main}>
@@ -34,6 +45,8 @@ function PlaylistList({
       song={item}
       order={index}
       playlist={playlist}
+      canDelete={permissions?.canDelete}
+      handleRemove={() => handleLocalRemove(item.songPlaylistId)}
      />
     ))}
    </ScrollElement>

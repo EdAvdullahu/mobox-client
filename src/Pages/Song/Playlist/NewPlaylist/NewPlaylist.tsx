@@ -45,7 +45,7 @@ const NewPlaylist: React.FC<PlaylistProps> = ({ handleToggle }) => {
    };
 
    try {
-    const res = await ApiCall.postNoAuth(
+    const res = await ApiCall.post(
      ENDPOINTS.USER.SONGS.PLAYLISTS.NEW(),
      playlist
     );

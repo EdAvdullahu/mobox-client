@@ -24,7 +24,7 @@ const NewLyrics = () => {
  const getReleases = async () => {
   if (releases.length === 0 && artistID) {
    try {
-    const res = await ApiCall.getNoAuth(ENDPOINTS.ARTIST.GET(artistID), null);
+    const res = await ApiCall.get(ENDPOINTS.ARTIST.GET(artistID));
     if (res.data?.isSuccess) {
      const mapped = res.data.result?.releases?.map((item: any) => {
       return {
@@ -76,10 +76,7 @@ const NewLyrics = () => {
  const getLyrics = async () => {
   try {
    if (songId) {
-    const res = await ApiCall.getNoAuth(
-     ENDPOINTS.SONGS.LYRICS.GET(songId + ""),
-     null
-    );
+    const res = await ApiCall.get(ENDPOINTS.SONGS.LYRICS.GET(songId + ""));
     if (res.data.result) {
      setLyricsE(true);
     } else {

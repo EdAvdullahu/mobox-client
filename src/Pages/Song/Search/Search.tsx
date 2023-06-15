@@ -29,7 +29,7 @@ function Search() {
  useEffect(() => {
   if (searchType === "SEARCH" && searchParam !== "") {
    const searchUrl = ENDPOINTS.FILTER.CUSTOM(searchParam);
-   ApiCall.getNoAuth(searchUrl, null)
+   ApiCall.get(searchUrl)
     .then((res) => {
      if (res.data.isSuccess) {
       dispatch(
@@ -42,7 +42,7 @@ function Search() {
     });
   } else if (searchType === "GENRE" && selected.length > 0) {
    const searchUrl = selected.map((obj: any) => obj?.value).join(",");
-   ApiCall.getNoAuth(ENDPOINTS.FILTER.GENRE(), {
+   ApiCall.getObj(ENDPOINTS.FILTER.GENRE(), {
     genres: searchUrl,
    })
     .then((res) => {

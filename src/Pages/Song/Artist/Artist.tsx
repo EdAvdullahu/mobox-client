@@ -21,10 +21,7 @@ function Artist() {
    try {
     setLoading(true);
 
-    const response = await ApiCall.getNoAuth(
-     ENDPOINTS.ARTIST.GET(artistId + ""),
-     null
-    );
+    const response = await ApiCall.get(ENDPOINTS.ARTIST.GET(artistId + ""));
 
     if (response.data.isSuccess) {
      const artist: IArtist = {

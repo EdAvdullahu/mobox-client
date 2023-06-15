@@ -15,7 +15,7 @@ function SongBasePage() {
  const genres = useSelector((state: SongState) => state.song.genres);
  useEffect(() => {
   if (!genres) {
-   ApiCall.getNoAuth(ENDPOINTS.SONGS.GENRE.GET(), null).then((res) => {
+   ApiCall.get(ENDPOINTS.SONGS.GENRE.GET()).then((res) => {
     if (res.data.result) {
      dispatch(SongActions.SetGenres({ genres: res.data.result }));
     }
