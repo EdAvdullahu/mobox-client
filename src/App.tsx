@@ -89,7 +89,10 @@ function App() {
  useEffect(() => {
   if (!user?.email && !userI) {
    const currentPath = router.state.location.pathname;
-   if (!currentPath.includes("verify")) {
+   if (
+    !currentPath.includes("verify") &&
+    !currentPath.includes("reset-password")
+   ) {
     router.navigate("/user/login");
    }
   }

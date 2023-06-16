@@ -10,6 +10,8 @@ import { MultiSelect } from "react-multi-select-component";
 import useDebounce from "../../../Hooks/useDebounce";
 import { SearchActions } from "../../../Store/Search/search_reducer";
 import SearchResults from "./SearchResults/SearchResults";
+import GenreResultPage from "./GenreResult/GenreResultPage";
+import { GenreResult } from "../types/GenreResult";
 
 function Search() {
  const searchParam = useSelector(
@@ -23,6 +25,7 @@ function Search() {
  }));
  const [selected, setSelected] = useState([]);
  const debouncedSelected = useDebounce(selected, 2000);
+ const [genreResults, setGR] = useState<GenreResult[] | null>(null);
 
  const dispatch = useDispatch();
 
@@ -46,7 +49,7 @@ function Search() {
     genres: searchUrl,
    })
     .then((res) => {
-     console.log(res.data.result);
+     setGR(res.data.result);
     })
     .catch((error) => {
      console.error("Genre API error:", error);
@@ -87,6 +90,7 @@ function Search() {
       onChange={setSelected}
       labelledBy="Select genres"
      />
+     <div>{genreResults && <GenreResultPage results={genreResults} />}</div>
     </div>
    )}
   </div>

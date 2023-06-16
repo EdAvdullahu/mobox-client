@@ -7,6 +7,20 @@ import { UserActions } from "../../../Store/UserStore/user_reducer";
 import { IPlaylist } from "../../../Pages/Song/types/IPlaylist";
 import COOKIE from "../../../Common/Services/cookie.service";
 import router from "../../../Router/router";
+import { NavLink } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+const logError = (message: string) => {
+ toast.error(message, {
+  position: "top-center",
+  autoClose: 2000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+ });
+};
 
 interface IUser {
  email: string;
@@ -61,13 +75,19 @@ function LoginPage() {
  };
  const url = COOKIE.getCookie("desiredLocation")?.replace("%2F", "/");
  const Login = async () => {
-  const res = await ApiCall.post(ENDPOINTS.USER.LOGIN(), user);
-  if (res.data.isSuccess) {
-   COOKIE.setCookie("userToken", res.data.result.token);
-   COOKIE.setCookie("refreshToken", res.data.result.refreshToken);
-   COOKIE.setCookie("role", res.data.result.role);
-   COOKIE.setCookie("uid", res.data.result.id);
-   login(res.data.result.token);
+  try {
+   const res = await ApiCall.post(ENDPOINTS.USER.LOGIN(), user);
+   if (res.data.isSuccess) {
+    COOKIE.setCookie("userToken", res.data.result.token);
+    COOKIE.setCookie("refreshToken", res.data.result.refreshToken);
+    COOKIE.setCookie("role", res.data.result.role);
+    COOKIE.setCookie("uid", res.data.result.id);
+    login(res.data.result.token);
+   } else {
+    logError(res.data.displayMessage);
+   }
+  } catch (error) {
+   logError(error + "");
   }
  };
  const login = async (uToken: string) => {
@@ -119,23 +139,39 @@ function LoginPage() {
 
  return (
   <form className={classes.main} onSubmit={handleLogin}>
-   <h1>Login</h1>
-   <div>
+   <ToastContainer />
+   <h1 className={classes.title}>MOBOX Log In</h1>
+   <div className={classes.google}>Sign in with google</div>
+   <div className={classes.or}>
+    {" "}
+    <div className={classes.or_inner}>or</div>{" "}
+   </div>
+   <div className={classes.field}>
+    <div className={classes.mobox}>login through MOBOX</div>
     <input
      type="text"
      value={uName}
      onChange={(e) => setUName(e.target.value)}
-     placeholder="Username"
+     placeholder="Username..."
     />
     <input
      type="password"
      value={password}
      onChange={(e) => setPassword(e.target.value)}
-     placeholder="Password"
+     placeholder="Password..."
     />
+    <div className={classes.forgot}>
+     Forgot your password?{" "}
+     <NavLink to={"/user/reset-password"}>
+      <span className={classes.reset}>Reset Password</span>
+     </NavLink>
+    </div>
    </div>
-   <div>
-    <button type="submit">Login</button>
+   <div className={classes.buttons}>
+    <button type="submit" className={classes.login}>
+     Log in
+    </button>
+    <button className={classes.signup}>Sign up</button>
    </div>
   </form>
  );

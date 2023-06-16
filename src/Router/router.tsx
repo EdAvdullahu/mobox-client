@@ -23,6 +23,8 @@ import StatisticsBase from "../Pages/Admin/Artist/Statistics/Base/StatisticsBase
 import ArtistStatistics from "../Pages/Admin/Artist/Statistics/Artist/ArtistStatistics";
 import SongStatistics from "../Pages/Admin/Artist/Statistics/Song/SongsStatistics";
 import ReleaseStatistics from "../Pages/Admin/Artist/Statistics/Release/ReleaseStatistics";
+import ResetPasswordBase from "../Pages/Auth/ResetPassword/ResetPasswordBase";
+import ResetPasswordToken from "../Pages/Auth/ResetPassword/ResetPasswordToken";
 
 const router = createBrowserRouter([
  {
@@ -36,6 +38,8 @@ const router = createBrowserRouter([
     children: [
      { path: "/user/login", element: <LoginPage></LoginPage> },
      { path: "/user/verify/:token", element: <VerifyEmail /> },
+     { path: "/user/reset-password", element: <ResetPasswordBase /> },
+     { path: "/user/reset-password/:token", element: <ResetPasswordToken /> },
     ],
    },
    {
