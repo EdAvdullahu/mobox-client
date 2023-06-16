@@ -47,6 +47,14 @@ export const userSlice = createSlice({
     state.playlists.push(action.payload.playlist);
    }
   },
+  removePlaylist: (state, action: PayloadAction<string>) => {
+   if (Array.isArray(state.playlists)) {
+    const index = state.playlists.findIndex((item: any) => {
+     return item && item.playlistId !== action.payload;
+    });
+    state.playlists.splice(index, 1);
+   }
+  },
  },
 });
 

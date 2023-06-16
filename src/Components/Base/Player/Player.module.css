@@ -171,3 +171,135 @@
   -webkit-appearance: none;
   margin-top: -4px;
 }
+
+
+.arrayT {
+  transition: all ease-in-out 0.5s;
+}
+
+.array_openT {
+  transform: rotateZ(180deg);
+}
+
+.song_wrapperT {
+  border-radius: 10px;
+  top: 320px;
+  right: 250px;
+  position: absolute;
+}
+
+.inner_songW {
+  height: 400px;
+  width: 350px;
+}
+
+.player {
+  color: var(--gray-font);
+  font-family: 'Kodchasan';
+  margin-bottom: 20px;
+}
+
+.song_infoT {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 70%;
+  gap: 10px;
+}
+
+.song_info_imgT {
+  width: 100%;
+  aspect-ratio: 1/0.7;
+  background-color: var(--black-trans40);
+  border-radius: 18px;
+}
+
+.song_info_textT {
+  color: var(--white-font);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins";
+  text-transform: uppercase;
+  width: 100%;
+  align-items: center;
+}
+
+.song_info_textT h3,
+.song_info_textT p {
+  margin: 0;
+  padding: 3px;
+}
+
+.bottom_part {
+  background-color: var(--neon-pink60);
+  height: 100px;
+  width: calc(100% - 10px);
+  position: absolute;
+  margin-left: -20px;
+  border-radius: 0 0 10px 10px;
+  padding: 5px;
+  bottom: 0px;
+}
+
+.control_wrapperT {
+  /* width: 360px; */
+}
+
+.lyricsT {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  align-items: center;
+  text-transform: uppercase;
+  font-family: "Kodchasan";
+  color: var(--white);
+  font-size: 0.7rem;
+}
+
+.main_lyricsT {
+  background-color: var(--neon-pink60);
+  height: 100%;
+}
+
+.lyrics_wrapperT {
+  background-color: var(--neon-pink60);
+  margin-top: 20px;
+  height: calc(100% - 100px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+  overflow: auto;
+}
+
+.controllersT {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.timeT {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  font-family: "Kodchasan";
+  color: var(--white-font);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time_itemT {
+  width: 5%;
+}
+
+.time_barT {
+  accent-color: var(--neon-pink60);
+  width: 80%;
+  height: 6px;
+}

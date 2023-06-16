@@ -5,7 +5,7 @@ import ENDPOINTS from "../../../Common/Api/ENDPOINTS";
 import PlaylistList from "./PlaylistList/PlaylistList";
 import { IPlaylist, permissions } from "../types/IPlaylist";
 import classes from "./Playlist.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Store/UserStore/user_state";
 import { ISong } from "../types/ISong";
 import Collabs from "../../../Assets/Svg/Collabs";
@@ -14,6 +14,9 @@ import PlaylistCollaborators from "./Collaborators/PlaylistCollaborators";
 import Share from "../../../Assets/Svg/Share";
 import { toast } from "react-toastify";
 import COOKIE from "../../../Common/Services/cookie.service";
+import Delete from "../../../Assets/Svg/Delete";
+import { UserActions } from "../../../Store/UserStore/user_reducer";
+import router from "../../../Router/router";
 
 function Playlist() {
  const { playlistId } = useParams<{ playlistId: string }>();
@@ -21,6 +24,7 @@ function Playlist() {
  const userId = COOKIE.getCookie("userId");
  const likedSongs = useSelector((state: RootState) => state.user.likedSongs);
  const [perm, setPerm] = useState<permissions | undefined>(undefined);
+ const dispatch = useDispatch();
 
  // add like data if song is in liked playlist
  const addLikeData = (playlist: IPlaylist): IPlaylist => {
@@ -101,7 +105,16 @@ function Playlist() {
     // toast.destroy(id);
    })
    .catch((error) => {
-    console.error("Failed to copy URL to clipboard:", error);
+    toast.error(error, {
+     position: "top-center",
+     autoClose: 2000,
+     hideProgressBar: true,
+     closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "dark",
+    });
    });
  };
 
@@ -113,6 +126,61 @@ function Playlist() {
   if (updatedPlaylist) {
    if (playlist?.playlistId)
     setPlaylist({ ...playlist, songs: updatedPlaylist });
+  }
+ };
+
+ const [deletionInProgress, setDeletionInProgress] = useState(false);
+ const handlePlaylistDelete = async () => {
+  if (deletionInProgress) {
+   return;
+  }
+  setDeletionInProgress(true);
+  if (playlist?.playlistId && userId) {
+   try {
+    const res = await ApiCall.delete(
+     ENDPOINTS.USER.SONGS.PLAYLISTS.DELETE(+userId, playlist.playlistId),
+     null
+    );
+    if (res.data.result) {
+     toast.success("Playlist deleted successfully", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+     });
+     console.log("BEFORE CALL");
+     dispatch(UserActions.removePlaylist(playlist.playlistId));
+     router.navigate("/music");
+    } else {
+     toast.error(res.data.displayMessage, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+     });
+    }
+   } catch (error) {
+    toast.error("Something went wrong", {
+     position: "top-center",
+     autoClose: 2000,
+     hideProgressBar: true,
+     closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "dark",
+    });
+   } finally {
+    setDeletionInProgress(false);
+   }
   }
  };
 
@@ -137,6 +205,11 @@ function Playlist() {
       <div onClick={handleToggle}>
        <Collabs />
       </div>
+      {playlist?.ownerId && userId && playlist?.ownerId == +userId && (
+       <div onClick={handlePlaylistDelete} className={classes.delete}>
+        <Delete />
+       </div>
+      )}
       {editCollabs && (
        <Portal>
         <PlaylistCollaborators

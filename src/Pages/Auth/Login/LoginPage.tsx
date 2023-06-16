@@ -113,7 +113,7 @@ function LoginPage() {
   dispatch(UserActions.setUser(userState));
   COOKIE.setCookie("username", user.name);
   COOKIE.setCookie("userId", user.id);
-  if (url?.includes("login") || url?.includes("sign-in")) {
+  if (url?.includes("login") || url?.includes("sign-in") || !url) {
    const Irole = COOKIE.getCookie("role");
    if (Irole == "Artist") {
     router.navigate("/admin/artist/statistics/artist");

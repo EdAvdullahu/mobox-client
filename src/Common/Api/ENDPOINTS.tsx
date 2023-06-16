@@ -24,6 +24,7 @@ interface Endpoints {
     GET_COLLABS: (id: string) => string;
     GET_PERMISSIONS: (id: number, playlist: string) => string;
     DELETE_SONG: (id: number) => string;
+    DELETE: (id: number, playlist: string) => string;
    };
    LIKES: {
     LIKE: () => string;
@@ -94,6 +95,7 @@ const ENDPOINTS: Endpoints = {
     GET_PERMISSIONS: (id, playlist) =>
      useApi(`Songs/Playlist/playlist/authorize/${id}/${playlist}`),
     DELETE_SONG: (id) => useApi(`Songs/Playlist/song/${id}`),
+    DELETE: (id, playlist) => useApi(`Songs/Playlist/${playlist}/${id}`),
    },
    LIKES: {
     LIKE: () => useApi("Songs/Song/like"),

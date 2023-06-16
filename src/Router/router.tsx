@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import BasePage from "../Pages/Base/BasePage";
 import SongBasePage from "../Pages/Song/Base/SongBasePage";
 import PodcastBasePage from "../Pages/Base/PodcastBase/PodcastBasePage";
-import Explore from "../Pages/Song/Explore";
+import Explore from "../Pages/Song/Menu/Explore";
 import UserBasePage from "../Pages/Auth/Base/BasePage";
 import LoginPage from "../Pages/Auth/Login/LoginPage";
 import Playlist from "../Pages/Song/Playlist/Playlist";
