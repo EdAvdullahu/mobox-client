@@ -47,3 +47,34 @@ export interface Data {
  advanced: Advanced[];
  releases: Release[];
 }
+
+export interface UserApi {
+ id: string;
+ username: string;
+ image: string;
+}
+
+export interface UsersSearchResult {
+ users: UserApi[] | null;
+}
+
+export interface Playlist {
+ playlitId: string;
+ tittle: string;
+ description: string;
+ isPublic: boolean;
+ ownerId: number;
+ collaborations: [];
+ songs: null;
+ playlistLikes: null;
+}
+
+export interface PlaylistSearchObj {
+ playlist: Playlist;
+ isCollaborator: boolean;
+ isOwner: boolean;
+}
+
+export interface PlaylistSearchResults {
+ playlists: PlaylistSearchObj[] | null;
+}

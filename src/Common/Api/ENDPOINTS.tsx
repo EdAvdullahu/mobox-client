@@ -48,6 +48,9 @@ interface Endpoints {
  FILTER: {
   GENRE: () => string;
   CUSTOM: (name: string) => string;
+  USERS: (name: string) => string;
+  USER: (id: string) => string;
+  PLAYLISTS: (id: number, name: string) => string;
  };
  SONGS: {
   RELEASE: {
@@ -120,7 +123,11 @@ const ENDPOINTS: Endpoints = {
  },
  FILTER: {
   GENRE: () => useApi("Songs/SongApi/genre/filter"),
-  CUSTOM: (name: string) => useApi(`Songs/SongApi/search/${name}`),
+  CUSTOM: (name) => useApi(`Songs/SongApi/search/${name}`),
+  USERS: (name) => useApi(`User/User/search-users/${name}`),
+  USER: (name) => useApi(`Songs/User/public-profile/${name}`),
+  PLAYLISTS: (id, name) =>
+   useApi(`Songs/SongAPI/playlist/search/${id}/${name}`),
  },
  SONGS: {
   RELEASE: {

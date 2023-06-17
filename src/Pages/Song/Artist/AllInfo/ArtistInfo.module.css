@@ -29,6 +29,10 @@
  height: 100%;
 }
 
+.back_img {
+ width: 100%;
+}
+
 .name {
  color: var(--white-font);
  font-family: "Kodchasan";

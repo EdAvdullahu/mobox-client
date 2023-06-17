@@ -6,7 +6,6 @@ import ScrollElement from "../../../../Components/ScrollElement";
 import { ArtistState } from "../../../../Store/ArtistStore/artist_state";
 import { Release, ReleaseType } from "../../types/IArtist";
 import Card from "../../../../Components/Base/Card/Card";
-import router from "../../../../Router/router";
 
 import { NavLink } from "react-router-dom";
 
@@ -105,7 +104,7 @@ function AllArtistInfo() {
     <div className={classes.backdrop}>
      <BaseBackground></BaseBackground>
     </div>
-    <img src={artist?.imgUrl} alt={artist?.name} />
+    <img className={classes.back_img} src={artist?.imgUrl} alt={artist?.name} />
    </div>
    <div className={classes.body}>
     <>

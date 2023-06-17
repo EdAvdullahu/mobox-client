@@ -109,3 +109,19 @@
  object-fit: cover;
  width: 100%;
 }
+
+.user_img {
+ width: 200px;
+ height: 200px;
+}
+
+.user_img img {
+ height: 200px;
+ background-size: cover;
+}
+
+.playlist_img {
+ height: 200px;
+ width: 200px;
+ background-color: var(--backdrop);
+}

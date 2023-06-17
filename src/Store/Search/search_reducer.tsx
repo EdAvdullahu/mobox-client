@@ -1,4 +1,8 @@
-import { Data } from "../../Pages/Song/types/ISearch";
+import {
+ Data,
+ PlaylistSearchResults,
+ UsersSearchResult,
+} from "../../Pages/Song/types/ISearch";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface search {
@@ -7,9 +11,14 @@ interface search {
 interface SearchResult {
  searchResult: Data | null;
 }
-const initialState: search & SearchResult = {
+const initialState: search &
+ SearchResult &
+ UsersSearchResult &
+ PlaylistSearchResults = {
  searchParam: "",
  searchResult: null,
+ users: null,
+ playlists: null,
 };
 
 export const searchSlice = createSlice({
@@ -21,6 +30,12 @@ export const searchSlice = createSlice({
   },
   SetSearchResult: (state, action: PayloadAction<SearchResult>) => {
    state.searchResult = action.payload.searchResult;
+  },
+  SetUserResult: (state, action: PayloadAction<UsersSearchResult>) => {
+   state.users = action.payload.users;
+  },
+  SetPlaylistResult: (state, action: PayloadAction<PlaylistSearchResults>) => {
+   state.playlists = action.payload.playlists;
   },
  },
 });
