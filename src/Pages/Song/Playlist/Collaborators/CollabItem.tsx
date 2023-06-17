@@ -45,6 +45,7 @@ const CollabItem: React.FC<props> = ({
       Can Add Songs
       <Switch
        isOn={hasAP}
+       htmlFor={"add" + id}
        onColor="#EF476F"
        handleToggle={() => setADd(!hasAP)}
       />
@@ -53,6 +54,7 @@ const CollabItem: React.FC<props> = ({
       Can Remove Songs
       <Switch
        isOn={hasRP}
+       htmlFor={"remove" + id}
        onColor="#EF476F"
        handleToggle={() => setRem(!hasRP)}
       />

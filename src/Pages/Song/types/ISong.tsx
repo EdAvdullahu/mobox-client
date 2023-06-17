@@ -13,6 +13,12 @@ export interface ISong {
  features: {
   artistId: number;
   name: string;
+  artist:
+   | {
+      artistId: number;
+      name: string;
+     }
+   | undefined;
  }[];
  genres: {
   genreId: number;

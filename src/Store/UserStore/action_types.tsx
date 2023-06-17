@@ -11,6 +11,8 @@ export const RESET_LIKED_SONGS = "RESET_LIKED_SONGS";
 export const REMOVE_LIKED_SONG = "REMOVE_LIKED_SONG";
 export const ADD_PLAYLIST = "ADD_PLAYLIST";
 export const REMOVE_PLAYLIST = "REMOVE_PLAYLIST";
+export const RESET_LIKED_PLAYLISTS = "RESET_LIKED_PLAYLISTS";
+export const REMOVE_LIKED_PLAYLIST = "REMOVE_LIKED_PLAYLIST";
 
 interface SetUserAction {
  type: typeof SET_USER;
@@ -36,6 +38,14 @@ interface removePlaylist {
  type: typeof REMOVE_PLAYLIST;
  payload: string;
 }
+interface removeLikedPlaylist {
+ type: typeof REMOVE_LIKED_PLAYLIST;
+ payload: number;
+}
+interface resetLikedPlaylist {
+ type: typeof RESET_LIKED_PLAYLISTS;
+ payload: any;
+}
 
 export type UserActionTypes =
  | SetUserAction
@@ -43,4 +53,6 @@ export type UserActionTypes =
  | resetLikedSongs
  | removeLikedSongs
  | addPlaylist
- | removePlaylist;
+ | removePlaylist
+ | removeLikedPlaylist
+ | resetLikedPlaylist;

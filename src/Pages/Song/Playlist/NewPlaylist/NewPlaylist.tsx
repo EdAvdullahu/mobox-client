@@ -89,6 +89,7 @@ const NewPlaylist: React.FC<PlaylistProps> = ({ handleToggle }) => {
        <span className={!isPrivate ? classes.toggle_active : ""}>public</span>
        <Switch
         isOn={isPrivate}
+        htmlFor={"private"}
         onColor="#EF476F"
         handleToggle={() => setIsPrivate(!isPrivate)}
        />

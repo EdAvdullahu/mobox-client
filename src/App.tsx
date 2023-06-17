@@ -18,6 +18,7 @@ interface IUserState {
  user: IUser | null;
  likedSongs: any;
  playlists: any;
+ likedPlaylists: any;
 }
 
 const formatLikedSongs = (likedSongs: any) =>
@@ -58,7 +59,7 @@ function App() {
  }
  const login = async (username: string) => {
   const res = await ApiCall.get(ENDPOINTS.USER.WHO_AM_I(username));
-
+  console.log("user", res.data.result);
   const user: IUser = {
    email: "test",
    name: res.data.result.userName,
@@ -72,11 +73,11 @@ function App() {
    description: "A list of liked songs",
    songs: formatLikedSongs(res.data.result.songLikes),
   };
-
   const userState: IUserState = {
    user,
    likedSongs: playlist,
    playlists: res.data.result.playlists,
+   likedPlaylists: res.data.result.playlistLikes,
   };
   dispatch(UserActions.setUser(userState));
  };

@@ -25,6 +25,8 @@ interface Endpoints {
     GET_PERMISSIONS: (id: number, playlist: string) => string;
     DELETE_SONG: (id: number) => string;
     DELETE: (id: number, playlist: string) => string;
+    RECOMMEND: (id: string) => string;
+    DISLIKE: (id: number) => string;
    };
    LIKES: {
     LIKE: () => string;
@@ -51,6 +53,7 @@ interface Endpoints {
   USERS: (name: string) => string;
   USER: (id: string) => string;
   PLAYLISTS: (id: number, name: string) => string;
+  SONGUSER: (name: string) => string;
  };
  SONGS: {
   RELEASE: {
@@ -99,6 +102,8 @@ const ENDPOINTS: Endpoints = {
      useApi(`Songs/Playlist/playlist/authorize/${id}/${playlist}`),
     DELETE_SONG: (id) => useApi(`Songs/Playlist/song/${id}`),
     DELETE: (id, playlist) => useApi(`Songs/Playlist/${playlist}/${id}`),
+    RECOMMEND: (id) => useApi(`Songs/Recommendation/${id}`),
+    DISLIKE: (id) => useApi(`Songs/Playlist/like/${id}`),
    },
    LIKES: {
     LIKE: () => useApi("Songs/Song/like"),
@@ -128,6 +133,7 @@ const ENDPOINTS: Endpoints = {
   USER: (name) => useApi(`Songs/User/public-profile/${name}`),
   PLAYLISTS: (id, name) =>
    useApi(`Songs/SongAPI/playlist/search/${id}/${name}`),
+  SONGUSER: (name) => useApi(`Songs/User/search/${name}`),
  },
  SONGS: {
   RELEASE: {

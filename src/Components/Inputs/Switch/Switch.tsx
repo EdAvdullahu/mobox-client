@@ -5,9 +5,15 @@ interface SwitchProps {
  isOn: boolean;
  handleToggle: () => void;
  onColor?: string;
+ htmlFor: string;
 }
 
-const Switch: React.FC<SwitchProps> = ({ isOn, handleToggle, onColor }) => {
+const Switch: React.FC<SwitchProps> = ({
+ isOn,
+ handleToggle,
+ onColor,
+ htmlFor,
+}) => {
  const defaultColor = "#CCCCCC";
  return (
   <>
@@ -15,13 +21,13 @@ const Switch: React.FC<SwitchProps> = ({ isOn, handleToggle, onColor }) => {
     checked={isOn}
     onChange={handleToggle}
     className={classes.react_switch_checkbox}
-    id={`react-switch-new`}
+    id={htmlFor}
     type="checkbox"
    />
    <label
     style={{ background: isOn ? onColor : defaultColor }}
     className={classes.react_switch_label}
-    htmlFor={`react-switch-new`}
+    htmlFor={htmlFor}
    >
     <span className={classes.react_switch_button} />
    </label>

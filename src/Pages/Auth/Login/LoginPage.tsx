@@ -32,6 +32,7 @@ interface IUserState {
  user: IUser | null;
  likedSongs: any;
  playlists: any;
+ likedPlaylists: any;
 }
 
 const formatLikedSongs = (likedSongs: any) =>
@@ -92,6 +93,7 @@ function LoginPage() {
  };
  const login = async (uToken: string) => {
   const res = await ApiCall.login(ENDPOINTS.USER.WHO_AM_I(uName), uToken);
+  console.log("user login", res.data.result);
   const user: IUser = {
    email: "test",
    name: res.data.result.userName,
@@ -109,6 +111,7 @@ function LoginPage() {
    user,
    likedSongs: playlist,
    playlists: res.data.result.playlists,
+   likedPlaylists: res.data.resilt.playlistLikes,
   };
   dispatch(UserActions.setUser(userState));
   COOKIE.setCookie("username", user.name);

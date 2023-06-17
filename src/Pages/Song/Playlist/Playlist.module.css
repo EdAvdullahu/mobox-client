@@ -75,9 +75,40 @@
  transform: scale(1.7);
  margin-left: 5px;
  cursor: pointer;
+ margin-top: 3px;
 }
 
 .delete svg,
 .delete path {
- fill: var(--logo) !important;
+ fill: var(--white-font) !important;
+}
+
+.recommend {
+ margin-left: 5px;
+ margin-top: 4px;
+ transform: scale(1.65);
+ cursor: pointer;
+}
+
+.recommended {
+ margin-top: 30px;
+}
+
+.recommended>div:first-child {
+ font-family: 'Kodcahsan';
+ font-size: 1.5rem;
+ color: var(--white-font);
+ background-color: var(--black-trans40);
+ padding: 10px;
+}
+
+.list_holder {
+ padding-bottom: 120px;
+}
+
+.likebtn {
+ margin: 0 5px;
+ margin-top: 2px;
+ transform: scale(1.7);
+ cursor: pointer;
 }

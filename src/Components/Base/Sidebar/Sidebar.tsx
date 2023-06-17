@@ -16,6 +16,9 @@ function Sidebar() {
  const [createPlaylist, setCreatePlaylist] = useState(false);
 
  const playlists = useSelector((state: RootState) => state.user.playlists);
+ const likedPlaylists = useSelector(
+  (state: RootState) => state.user.likedPlaylists
+ );
  const handleToggle = () => {
   setCreatePlaylist(!createPlaylist);
  };
@@ -31,9 +34,9 @@ function Sidebar() {
       <div>
        <NavLink to="/music"> Explore</NavLink>
       </div>
-      <div>Item 2</div>
-      <div>Item 3</div>
-      <div>Item 4</div>
+      <div>Genres</div>
+      <div>Country</div>
+      <div>Trending</div>
       <div>Item 5</div>
       <div>Item 6</div>
      </div>
@@ -46,15 +49,14 @@ function Sidebar() {
         <HeartFill /> Liked Songs
        </NavLink>
       </div>
-      <div className={classes.icon_wrapper}>
-       <LibraryIconGrey /> Llibrary C
-      </div>
-      <div className={classes.icon_wrapper}>
-       <LibraryIconGrey /> Llibrary D
-      </div>
-      <div className={classes.icon_wrapper}>
-       <LibraryIconGrey /> Llibrary E
-      </div>
+      {Array.isArray(likedPlaylists) &&
+       likedPlaylists.map((item: any) => (
+        <div className={classes.icon_wrapper}>
+         <NavLink to={"/music/playlist/" + item.playlistId}>
+          <LibraryIconGrey /> {item?.playlist?.tittle}
+         </NavLink>
+        </div>
+       ))}
      </div>
     </div>
     <div className={classes.menu_item}>

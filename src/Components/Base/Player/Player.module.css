@@ -43,9 +43,16 @@
 .song_info_img {
   width: 88px;
   height: 76px;
-  background-color: var(--black-trans40);
   border-radius: 18px;
+  overflow: hidden;
+
 }
+
+.song_info_img img {
+  width: 88px;
+  background-size: contain;
+}
+
 
 .song_info_text {
   color: var(--white);

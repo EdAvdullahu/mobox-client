@@ -184,13 +184,24 @@ function PlayListListItem({
      </div>
      <div className={classes.song_info}>
       <p className={classes.title}>{song.name}</p>
-      {song.features.map((feature) => (
-       <p key={feature.artistId}>
-        <NavLink to={"/music/artist/" + feature.artistId}>
-         {feature.name}
-        </NavLink>
-       </p>
-      ))}
+      <div className={classes.feature_wrapper}>
+       <div className={classes.feature_container}>
+        {song.features.map((feature) => (
+         <div key={feature.artistId}>
+          <NavLink
+           className={classes.features}
+           to={
+            "/music/artist/" + (feature.artist?.artistId || feature.artistId)
+           }
+          >
+           <div className={classes.feature_inner}>
+            {feature.artist?.name || feature.name},
+           </div>
+          </NavLink>
+         </div>
+        ))}
+       </div>
+      </div>
      </div>
     </div>
     <div className={classes.album}>

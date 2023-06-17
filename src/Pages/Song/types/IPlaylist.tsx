@@ -6,6 +6,7 @@ export interface IPlaylist {
  ownerId: number;
  description: string;
  songs: ISong[];
+ likeCount?: number;
 }
 export interface permissions {
  canDelete: boolean;

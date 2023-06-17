@@ -13,8 +13,8 @@ function PlaylistList({
 }: {
  songs: ISong[];
  playlist: IPlaylist;
- permissions: permissions | undefined;
- handleRemove: (playS: number) => void;
+ permissions?: permissions | undefined;
+ handleRemove?: (playS: number) => void;
 }) {
  const innerContent: CSSProperties = {
   height: "calc(100% - 300px)",
@@ -25,7 +25,7 @@ function PlaylistList({
 
  const handleLocalRemove = (id: number | undefined) => {
   console.log("HANDLE LOCALE CALLED", id);
-  if (id) {
+  if (id && handleRemove) {
    handleRemove(id);
   }
  };

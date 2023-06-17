@@ -107,7 +107,9 @@ const Player: React.FC<Props> = ({ audioRef }) => {
     >
      <div className={classes.song_wrapper}>
       <div className={classes.song_info}>
-       <div className={classes.song_info_img}></div>
+       <div className={classes.song_info_img}>
+        <img src={currentSong?.imageUrl} alt={currentSong?.name} />
+       </div>
        <div className={classes.song_info_text}>
         <h3>{currentSong?.name}</h3>
         <p>{currentSong?.features[0].name}</p>
